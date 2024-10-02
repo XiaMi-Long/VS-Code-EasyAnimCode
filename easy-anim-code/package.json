@@ -16,6 +16,10 @@
       {
         "command": "easy-anim-code.enable",
         "title": "easy-anim-code.enable-开启动画"
+      },
+      {
+        "command": "easy-anim-code.disable",
+        "title": "easy-anim-code.disable-关闭动画"
       }
     ]
   },
@@ -44,5 +48,8 @@
     "typescript": "^5.5.4",
     "webpack": "^5.94.0",
     "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "easy-anim-code": "file:"
   }
 }

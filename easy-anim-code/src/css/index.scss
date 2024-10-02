@@ -3,7 +3,7 @@
 }
 
 .current-line.current-line-margin-both {
-    border-left: 5px solid var(--vscode-style-plus-primary-color);
+    border-left: 5px solid var(--vscode-style-plus-primary-color) !important;
     transition: border-left-width 0.2s ease-out;
     animation: border-left-width-animation 0.2s ease-out;
 }
@@ -44,15 +44,15 @@
 }
 
 .overflowingContentWidgets .editor-widget.suggest-widget {
-    padding: 20px;
-    border-radius: 6px;
-    backdrop-filter: blur(10px);
-    background-color: #2a2b2b50;
+    padding: 20px !important;
+    border-radius: 6px !important;
+    backdrop-filter: blur(10px) !important;
+    background-color: #2a2b2b50 !important;
 
     .monaco-list-row {
-        border-left: 5px solid var(--vscode-style-plus-primary-color);
-        border-left-width: 0px;
-        transition: border-left-width 0.2s ease-in;
+        border-left: 5px solid var(--vscode-style-plus-primary-color) !important;
+        border-left-width: 0px !important;
+        transition: border-left-width 0.2s ease-in !important;
 
         &:hover {
             border-left-width: 5px;
