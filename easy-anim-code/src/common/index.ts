@@ -34,6 +34,17 @@ function enabledRestart() {
     vscode.window.showInformationMessage(TIPS.enableText, { title: TIPS.restartText }).then(reloadWindow)
 }
 
+/**
+ * 显示卸载成功的提示信息，并在用户确认后重新加载窗口
+ *
+ * @remarks
+ * 这个函数用于在插件卸载成功后，向用户显示一条信息提示，并提供一个选项让用户重新加载窗口。
+ *
+ * @param {string} TIPS.enableText - 要显示的提示信息文本。
+ * @param {string} TIPS.restartText - 重新加载窗口的按钮标题。
+ *
+ * @returns {Promise<void>} - 当用户点击重新加载窗口的按钮时，返回一个 Promise，表示窗口正在重新加载。
+ */
 function unInstallSuccess() {
     vscode.window.showInformationMessage(TIPS.enableText, { title: TIPS.restartText }).then(reloadWindow)
 }
