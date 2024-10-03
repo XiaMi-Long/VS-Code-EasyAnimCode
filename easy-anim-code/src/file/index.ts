@@ -1,6 +1,7 @@
 import * as path from 'path'
 import * as vscode from 'vscode'
 import * as fs from 'fs/promises'
+import { BACKUP_FILE_SUFFIX } from '../enum/tip'
 
 /**
  * 异步获取 Easy Anim Code 扩展的 CSS 文件内容
@@ -94,9 +95,9 @@ async function backupFile(currentPath: string, source: string, suffix: string) {
  * @returns 如果备份成功，返回 undefined，否则返回错误对象
  */
 async function backupWorkbench(workbenchFolder: string, workbenchPath: string) {
-    const suffix = 'easy-anim-code-backup-'
-    if (await checkIfBackupFileExists(workbenchFolder, workbenchPath, suffix)) return
-    backupFile(workbenchFolder, workbenchPath, suffix)
+    if (await checkIfBackupFileExists(workbenchFolder, workbenchPath, BACKUP_FILE_SUFFIX)) return false
+    backupFile(workbenchFolder, workbenchPath, BACKUP_FILE_SUFFIX)
+    return true
 }
 
 /**
@@ -106,22 +107,83 @@ async function backupWorkbench(workbenchFolder: string, workbenchPath: string) {
  * @returns 如果备份成功，返回 undefined，否则返回错误对象
  */
 async function backupWorkbenchApcExtension(workbenchFolder: string, workbenchApcExtensionPath: string) {
-    const suffix = 'easy-anim-code-backup-'
-    if (await checkIfBackupFileExists(workbenchFolder, workbenchApcExtensionPath, suffix)) return
-    backupFile(workbenchFolder, workbenchApcExtensionPath, suffix)
+    if (await checkIfBackupFileExists(workbenchFolder, workbenchApcExtensionPath, BACKUP_FILE_SUFFIX)) return false
+    backupFile(workbenchFolder, workbenchApcExtensionPath, BACKUP_FILE_SUFFIX)
+    return true
+}
+
+/**
+ * 获取备份的工作台文件
+ *
+ * @param {string} vscodeInstallPath - Visual Studio Code 的安装路径
+ * @returns {Promise<Object>} - 包含备份文件路径和内容的对象
+ * @throws {Error} - 如果读取文件时发生错误，将显示错误消息
+ */
+async function getBackupWorkbenchFile(vscodeInstallPath: string) {
+    const installPath = path.dirname(vscodeInstallPath)
+    const workbenchFolder = path.join(installPath, 'app', 'out', 'vs', 'code', 'electron-sandbox', 'workbench')
+    const workbenchPath = path.join(workbenchFolder, 'workbench.html')
+    const workbenchApcExtensionPath = path.join(workbenchFolder, 'workbench-apc-extension.html')
+    const backupWorkbenchPath = path.join(workbenchFolder, BACKUP_FILE_SUFFIX + 'workbench.html')
+    const backupWorkbenchApcExtensionPath = path.join(workbenchFolder, BACKUP_FILE_SUFFIX + 'workbench-apc-extension.html')
+
+    const backupWorkbenchText = await fs.readFile(backupWorkbenchPath, 'utf8').catch((err) => {
+        vscode.window.showErrorMessage(err)
+    })
+
+    const backupWorkbenchApcExtensionText = await fs.readFile(backupWorkbenchApcExtensionPath, 'utf8').catch((err) => {
+        vscode.window.showErrorMessage(err)
+    })
+
+    return {
+        workbenchPath,
+        workbenchApcExtensionPath,
+        workbenchFolder,
+        backupWorkbenchPath,
+        backupWorkbenchText,
+        backupWorkbenchApcExtensionPath,
+        backupWorkbenchApcExtensionText,
+    }
+}
+
+/**
+ * 删除备份的工作台文件
+ *
+ * @param {string} backupWorkbenchPath - 备份工作台文件的路径
+ * @returns {Promise<void>} - 当文件成功删除时解析的 Promise
+ * @throws {Error} - 如果删除文件时发生错误，将显示错误消息
+ */
+async function removeBackUpWorkBenchFile(backupWorkbenchPath: string) {
+    await fs.unlink(backupWorkbenchPath).catch((err) => {
+        vscode.window.showErrorMessage(err)
+    })
+}
+
+/**
+ * 删除备份的工作台 APC 扩展文件
+ *
+ * @param {string} backupWorkbenchApcExtensionPath - 备份的工作台 APC 扩展文件的路径
+ * @returns {Promise<void>} - 当文件成功删除时解析的 Promise
+ * @throws {Error} - 如果删除文件时发生错误，将显示错误消息
+ */
+async function removeBackUpWorkBenchApcExtensionFile(backupWorkbenchApcExtensionPath: string) {
+    await fs.unlink(backupWorkbenchApcExtensionPath).catch((err) => {
+        vscode.window.showErrorMessage(err)
+    })
 }
 
 /**
  * 将给定的 HTML 文本写入到指定的文件路径中
  *
- * @param {string} htmlText - 要写入的 HTML 文本
  * @param {string} workbenchPath - 目标文件的路径
+ * @param {string} htmlText - 要写入的 HTML 文本
  * @throws {Error} - 如果写入文件时发生错误，将显示错误消息
  */
-async function writeFile(htmlText: string, workbenchPath: string) {
+async function writeFile(workbenchPath: string, htmlText: string) {
     await fs.writeFile(workbenchPath, htmlText, 'utf8').catch((err) => {
         vscode.window.showErrorMessage(err)
     })
+    return true
 }
 
 export {
@@ -129,7 +191,10 @@ export {
     getResultHtml,
     backupWorkbench,
     getVsCodeInstallPath,
+    getBackupWorkbenchFile,
+    removeBackUpWorkBenchFile,
     backupWorkbenchApcExtension,
     getEasyAnimCodeExtensionsCss,
     getVsCodeWorkbenchFolderPath,
+    removeBackUpWorkBenchApcExtensionFile,
 }
