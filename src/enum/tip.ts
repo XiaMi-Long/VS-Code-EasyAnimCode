@@ -1,12 +1,26 @@
 const TIPS = {
     enableText: '来自easy-anim-code的提示',
     restartText: 'restart',
-    isBackUpText: 'easy-anim-code.enable 已执行过，本次中止执行',
+    isBackUpText: '插件已执行过，本次中止执行',
+    errorText: '执行出现异常',
+}
+
+const COMMANDS = {
+    enable: 'easy-anim-code.enable',
+    disable: 'easy-anim-code.disable',
+    reset: 'easy-anim-code.reset',
 }
 
 const BACKUP_FILE_SUFFIX = 'easy-anim-code-backup-'
 
-const workbenchHtmlTemplate = `<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
+const PRIMARY_FILE = {
+    workbench: 'workbench.html',
+    workbenchApcExtension: 'workbench-apc-extension.html',
+    backupWorkbench: BACKUP_FILE_SUFFIX + 'workbench.html',
+    backupWorkbenchApcExtension: BACKUP_FILE_SUFFIX + 'workbench-apc-extension.html',
+}
+
+const WORKBENCH_HTML_TEMPLATE = `<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <!DOCTYPE html>
 <html>
 
@@ -78,7 +92,7 @@ const workbenchHtmlTemplate = `<!-- Copyright (C) Microsoft Corporation. All rig
 
 </html>`
 
-const workbenchApcExtensionHtmlTemplate = `<!DOCTYPE html>
+const WORKBENCH_APC_EXTENSION_HTML_TEMPLATE = `<!DOCTYPE html>
 <html>
 
 <head>
@@ -93,4 +107,4 @@ const workbenchApcExtensionHtmlTemplate = `<!DOCTYPE html>
 
 </html>`
 
-export { TIPS, BACKUP_FILE_SUFFIX, workbenchHtmlTemplate, workbenchApcExtensionHtmlTemplate }
+export { TIPS, BACKUP_FILE_SUFFIX, PRIMARY_FILE, COMMANDS, WORKBENCH_HTML_TEMPLATE, WORKBENCH_APC_EXTENSION_HTML_TEMPLATE }
