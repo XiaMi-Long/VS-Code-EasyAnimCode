@@ -1,5 +1,5 @@
 import * as vscode from 'vscode'
-import { TIPS, EXTENSION_CONFIG } from '../enum/tip'
+import { TIPS, EXTENSION_CONFIG, ANIM_LEVEL } from '../enum/tip'
 
 /**
  * 重新加载当前窗口
@@ -50,10 +50,11 @@ function unInstallSuccess() {
 
 function getEasyAnimCodeConfig() {
     const config = vscode.workspace.getConfiguration('easy-anim-code')
-    let primaryColor = config.get(EXTENSION_CONFIG.PrimaryColor.key)
-
+    const primaryColor = config.get(EXTENSION_CONFIG.PrimaryColor.key)
+    const animLevel = config.get(EXTENSION_CONFIG.AnimLevel.key)
     return {
         primaryColor,
+        animLevel,
     }
 }
 
@@ -66,9 +67,24 @@ function createRootValStyleTemplate() {
     `
 }
 
+function createHighAnimLevel() {
+    const { animLevel } = getEasyAnimCodeConfig()
+    const highLevel = ANIM_LEVEL[animLevel as keyof typeof ANIM_LEVEL]
+    return `${highLevel}`
+}
+
 function resetEasyAnimCodeConfig() {
     const config = vscode.workspace.getConfiguration('easy-anim-code')
     config.update(EXTENSION_CONFIG.PrimaryColor.key, EXTENSION_CONFIG.PrimaryColor.default, true)
+    config.update(EXTENSION_CONFIG.AnimLevel.key, EXTENSION_CONFIG.AnimLevel.default, true)
 }
 
-export { reloadWindow, enabledRestart, unInstallSuccess, showIsBackUpNotification, createRootValStyleTemplate, resetEasyAnimCodeConfig }
+export {
+    reloadWindow,
+    enabledRestart,
+    unInstallSuccess,
+    createHighAnimLevel,
+    showIsBackUpNotification,
+    createRootValStyleTemplate,
+    resetEasyAnimCodeConfig,
+}

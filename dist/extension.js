@@ -156,6 +156,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.reloadWindow = reloadWindow;
 exports.enabledRestart = enabledRestart;
 exports.unInstallSuccess = unInstallSuccess;
+exports.createHighAnimLevel = createHighAnimLevel;
 exports.showIsBackUpNotification = showIsBackUpNotification;
 exports.createRootValStyleTemplate = createRootValStyleTemplate;
 exports.resetEasyAnimCodeConfig = resetEasyAnimCodeConfig;
@@ -206,9 +207,11 @@ function unInstallSuccess() {
 }
 function getEasyAnimCodeConfig() {
     const config = vscode.workspace.getConfiguration('easy-anim-code');
-    let primaryColor = config.get(tip_1.EXTENSION_CONFIG.PrimaryColor.key);
+    const primaryColor = config.get(tip_1.EXTENSION_CONFIG.PrimaryColor.key);
+    const animLevel = config.get(tip_1.EXTENSION_CONFIG.AnimLevel.key);
     return {
         primaryColor,
+        animLevel,
     };
 }
 function createRootValStyleTemplate() {
@@ -219,9 +222,15 @@ function createRootValStyleTemplate() {
         }
     `;
 }
+function createHighAnimLevel() {
+    const { animLevel } = getEasyAnimCodeConfig();
+    const highLevel = tip_1.ANIM_LEVEL[animLevel];
+    return `${highLevel}`;
+}
 function resetEasyAnimCodeConfig() {
     const config = vscode.workspace.getConfiguration('easy-anim-code');
     config.update(tip_1.EXTENSION_CONFIG.PrimaryColor.key, tip_1.EXTENSION_CONFIG.PrimaryColor.default, true);
+    config.update(tip_1.EXTENSION_CONFIG.AnimLevel.key, tip_1.EXTENSION_CONFIG.AnimLevel.default, true);
 }
 
 
@@ -231,7 +240,7 @@ function resetEasyAnimCodeConfig() {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.EXTENSION_CONFIG = exports.WORKBENCH_APC_EXTENSION_HTML_TEMPLATE = exports.WORKBENCH_HTML_TEMPLATE = exports.COMMANDS = exports.PRIMARY_FILE = exports.BACKUP_FILE_SUFFIX = exports.TIPS = void 0;
+exports.EXTENSION_CONFIG = exports.WORKBENCH_APC_EXTENSION_HTML_TEMPLATE = exports.WORKBENCH_HTML_TEMPLATE = exports.COMMANDS = exports.PRIMARY_FILE = exports.BACKUP_FILE_SUFFIX = exports.ANIM_LEVEL = exports.TIPS = void 0;
 // 消息弹窗的文字枚举
 const TIPS = {
     enableText: '来自easy-anim-code的提示',
@@ -264,8 +273,34 @@ const EXTENSION_CONFIG = {
         key: 'PrimaryColor',
         default: '#2aaaff',
     },
+    AnimLevel: {
+        key: 'AnimLevel',
+        default: 'low',
+    },
 };
 exports.EXTENSION_CONFIG = EXTENSION_CONFIG;
+const ANIM_LEVEL = {
+    low: ``,
+    high: `.part.sidebar.pane-composite-part {
+	    .pane-body {
+            .monaco-list-row {
+                .monaco-tl-row {
+                    .monaco-tl-twistie {
+                        transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                    }
+                    animation: easy-anim-slide-right 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                }
+            }
+
+            .monaco-tree-sticky-container {
+                .monaco-tl-row {
+                    animation: none;
+                }
+            }
+        }
+		}`,
+};
+exports.ANIM_LEVEL = ANIM_LEVEL;
 const WORKBENCH_HTML_TEMPLATE = `<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <!DOCTYPE html>
 <html>
@@ -461,7 +496,8 @@ async function getVSCodeWorkbenchFolderPath() {
  */
 function getResultHtml(workbenchText, cssText) {
     const rootVal = (0, common_1.createRootValStyleTemplate)();
-    return workbenchText?.replace(/(<\/head>)/, `\n<style>${rootVal} ${cssText}</style>\n</head>`);
+    const isHighLevel = (0, common_1.createHighAnimLevel)();
+    return workbenchText?.replace(/(<\/head>)/, `\n<style>${rootVal} ${cssText} ${isHighLevel}</style>\n</head>`);
 }
 /**
  * 检查备份文件是否存在

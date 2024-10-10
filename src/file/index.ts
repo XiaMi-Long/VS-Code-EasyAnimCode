@@ -2,7 +2,7 @@ import * as path from 'path'
 import * as vscode from 'vscode'
 import * as fs from 'fs/promises'
 import { PRIMARY_FILE } from '../enum/tip'
-import { createRootValStyleTemplate } from '../common'
+import { createHighAnimLevel, createRootValStyleTemplate } from '../common'
 
 /**
  * 异步获取 Easy Anim Code 扩展的 CSS 文件内容
@@ -72,7 +72,8 @@ async function getVSCodeWorkbenchFolderPath() {
  */
 function getResultHtml(workbenchText: string, cssText: string) {
     const rootVal = createRootValStyleTemplate()
-    return workbenchText?.replace(/(<\/head>)/, `\n<style>${rootVal} ${cssText}</style>\n</head>`)
+    const isHighLevel = createHighAnimLevel()
+    return workbenchText?.replace(/(<\/head>)/, `\n<style>${rootVal} ${cssText} ${isHighLevel}</style>\n</head>`)
 }
 
 /**

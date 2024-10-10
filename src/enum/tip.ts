@@ -30,6 +30,32 @@ const EXTENSION_CONFIG = {
         key: 'PrimaryColor',
         default: '#2aaaff',
     },
+    AnimLevel: {
+        key: 'AnimLevel',
+        default: 'low',
+    },
+}
+
+const ANIM_LEVEL = {
+    low: ``,
+    high: `.part.sidebar.pane-composite-part {
+	    .pane-body {
+            .monaco-list-row {
+                .monaco-tl-row {
+                    .monaco-tl-twistie {
+                        transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                    }
+                    animation: easy-anim-slide-right 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                }
+            }
+
+            .monaco-tree-sticky-container {
+                .monaco-tl-row {
+                    animation: none;
+                }
+            }
+        }
+		}`,
 }
 
 const WORKBENCH_HTML_TEMPLATE = `<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
@@ -121,6 +147,7 @@ const WORKBENCH_APC_EXTENSION_HTML_TEMPLATE = `<!DOCTYPE html>
 
 export {
     TIPS,
+    ANIM_LEVEL,
     BACKUP_FILE_SUFFIX,
     PRIMARY_FILE,
     COMMANDS,

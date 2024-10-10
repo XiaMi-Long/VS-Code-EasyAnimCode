@@ -1,13 +1,12 @@
 # EasyAnimCode
 
 **EasyAnimCode** 是一个为 VSCode 添加日常操作动画过渡的扩展，旨在增强用户体验。
-样式和代码灵感来自于 **[Fluent UI for VSCode](https://marketplace.visualstudio.com/items?itemName=leandro-rodrigues.fluent-ui-vscode)**。
 
 ## 功能
 
 -   为 VSCode 的常见操作添加动画效果。
 -   修改 VSCode 的基础样式，带来更美观的视觉体验。
--   目前仅支持 Windows 平台（经测试）。
+-   目前仅支持 Windows 平台（其他平台未测试）。
 -   推荐 VSCode 版本 `1.93` 及以上（实际可能支持更低版本）。
 
 ## 安装
@@ -22,6 +21,7 @@
 
 1. 以管理员身份运行 VSCode。
 2. 通过 VSCode 命令面板（按 `Ctrl+Shift+P`）执行 `easy-anim-code.disable` 命令禁用动画效果。执行完毕后，重新加载 VSCode。
+    > 禁用插件的同时，会重置插件的配置
 
 ## 重置和卸载
 
@@ -33,6 +33,8 @@
 
 > **重置注意**：重置后，若需卸载插件，直接卸载即可。
 > 若想重新启用动画，只需再次执行 `easy-anim-code.enable` 命令。
+
+> 禁用插件的同时，会重置插件的配置
 
 ## 插件错误修复指南
 
@@ -112,8 +114,12 @@
 ![setting](./image/setting.png)
 
 -   `Easy-anim-code.PrimaryColor`: 主色调，用于设置插件的主要颜色。
+-   `Easy-anim-code.AnimLevel`: 动画级别，用于设置插件的动画效果。
 
 > 配置选项的值，只允许 16 进制的颜色，如果需要不显示颜色，可以考虑加上透明度 100%
+
+**每次修改配置都需要运行 `easy-anim-code.disable` 命令和 `easy-anim-code.enable` 命令，重新加载 VSCode 以应用更改。**
+**请注意：每次运行 `easy-anim-code.disable` 命令之后，配置会被重置为默认值。**
 
 ## 致谢
 

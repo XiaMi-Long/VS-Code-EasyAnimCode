@@ -19,6 +19,15 @@
           "type": "string",
           "default": "#2aaaff",
           "markdownDescription": "插件的主色调（只支持#RGB，#RGBA，#RRGGBB，#RRGGBBAA）"
+        },
+        "easy-anim-code.AnimLevel": {
+          "type": "string",
+          "enum": [
+            "low",
+            "high"
+          ],
+          "default": "low",
+          "markdownDescription": "动画添加的数量（low: 较少, high: 较多）"
         }
       }
     },

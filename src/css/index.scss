@@ -1,8 +1,6 @@
 // :root {
 //     --vscode-style-easy-anim-red-color: #2aaaff;
 //     // --vscode-style-easy-anim-red-color: inherit;
-
-//     --vscode-style-easy-anim-gray-color: #767676fc;
 // }
 
 .current-line.current-line-margin-both {
@@ -293,6 +291,7 @@
     }
 }
 
+// 编辑代码页面打开时的动画
 .editor-container {
     .monaco-editor {
         animation: easy-anim-slide-right 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -352,7 +351,7 @@
     height: 60% !important;
     top: 20% !important;
     border-left: solid 4px var(--vscode-style-easy-anim-red-color) !important;
-
+    border-radius: 5px;
     animation: easy-anim-fade-in-left 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
@@ -373,5 +372,97 @@
         height: calc(100% - 45px) !important;
         border-bottom-left-radius: 5px;
         border-bottom-right-radius: 5px;
+    }
+}
+
+.menubar.compact {
+    .menubar-menu-items-holder.monaco-menu-container {
+        animation: easy-anim-scale-in-ver-top 0.2s cubic-bezier(0.23, 1, 0.32, 1) both;
+    }
+}
+
+.notifications-list-container {
+    .monaco-list-rows {
+        .notification-list-item-icon::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 3px;
+            height: 100%;
+        }
+        .notification-list-item-icon.codicon-info::after {
+            background-color: #3794ff;
+        }
+        .notification-list-item-icon.codicon-error::after {
+            background-color: #f14c4c;
+        }
+        .notification-list-item-icon.codicon-warning::after {
+            background-color: #cca710;
+        }
+    }
+}
+
+.notifications-center.visible {
+    animation: easy-anim-slide-in-bottom 0.4s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+@keyframes easy-anim-slide-in-bottom {
+    0% {
+        transform: translateY(1000px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes easy-anim-slide-in-bottom-reverse {
+    0% {
+        display: block !important;
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(1000px);
+        opacity: 0;
+        display: none !important;
+    }
+}
+
+// 扩展展示页面动画
+.extension-editor {
+    animation: easy-anim-slide-right 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+// 左边资源目录的动画
+.part.sidebar.pane-composite-part {
+    .content {
+        // git目录区域的动画
+        .composite.viewlet {
+            .actions {
+                .action-label.codicon.codicon-refresh:hover {
+                    animation: easy-anim-rotate-in-center 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+                }
+            }
+        }
+        // 行的动画
+        // .pane-body {
+        //     .monaco-list-row {
+        //         .monaco-tl-row {
+        //             .monaco-tl-twistie {
+        //                 transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        //             }
+        //             animation: easy-anim-slide-right 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        //         }
+        //     }
+
+        //     .monaco-tree-sticky-container {
+        //         .monaco-tl-row {
+        //             animation: none;
+        //         }
+        //     }
+        // }
     }
 }
