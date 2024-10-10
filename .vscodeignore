@@ -12,6 +12,12 @@ vsc-extension-quickstart.md
 **/*.ts
 
 .history/**
-!dist/**
 
 
+image/**
+pnpm-lock.yaml
+package.json
+eslint.config.mjs
+.vscode-test.mjs
+
+dist/*.map
