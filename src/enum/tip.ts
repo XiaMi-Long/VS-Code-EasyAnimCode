@@ -36,6 +36,7 @@ const EXTENSION_CONFIG = {
     },
 }
 
+// 动画等级枚举
 const ANIM_LEVEL = {
     low: ``,
     high: `.part.sidebar.pane-composite-part {
@@ -58,6 +59,7 @@ const ANIM_LEVEL = {
 		}`,
 }
 
+// 主文件原始备份模板
 const WORKBENCH_HTML_TEMPLATE = `<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <!DOCTYPE html>
 <html>
@@ -130,6 +132,7 @@ const WORKBENCH_HTML_TEMPLATE = `<!-- Copyright (C) Microsoft Corporation. All r
 
 </html>`
 
+// 扩展主文件原始备份模板
 const WORKBENCH_APC_EXTENSION_HTML_TEMPLATE = `<!DOCTYPE html>
 <html>
 
@@ -147,11 +150,11 @@ const WORKBENCH_APC_EXTENSION_HTML_TEMPLATE = `<!DOCTYPE html>
 
 export {
     TIPS,
-    ANIM_LEVEL,
-    BACKUP_FILE_SUFFIX,
-    PRIMARY_FILE,
     COMMANDS,
+    ANIM_LEVEL,
+    PRIMARY_FILE,
+    EXTENSION_CONFIG,
+    BACKUP_FILE_SUFFIX,
     WORKBENCH_HTML_TEMPLATE,
     WORKBENCH_APC_EXTENSION_HTML_TEMPLATE,
-    EXTENSION_CONFIG,
 }

@@ -48,6 +48,10 @@ function unInstallSuccess() {
     vscode.window.showInformationMessage(TIPS.enableText, { title: TIPS.restartText }).then(reloadWindow)
 }
 
+/**
+ * 获取 Easy Anim Code 扩展的配置
+ * @returns 包含 primaryColor 和 animLevel 的对象
+ */
 function getEasyAnimCodeConfig() {
     const config = vscode.workspace.getConfiguration('easy-anim-code')
     const primaryColor = config.get(EXTENSION_CONFIG.PrimaryColor.key)
@@ -58,6 +62,11 @@ function getEasyAnimCodeConfig() {
     }
 }
 
+/**
+ * 创建一个根元素的样式模板，该模板定义了一个名为 --vscode-style-easy-anim-red-color 的 CSS 变量，其值为从配置中获取的 primaryColor。
+ *
+ * @returns 一个包含定义了 CSS 变量的字符串的模板。
+ */
 function createRootValStyleTemplate() {
     const { primaryColor } = getEasyAnimCodeConfig()
     return `
@@ -67,12 +76,23 @@ function createRootValStyleTemplate() {
     `
 }
 
+/**
+ * 根据配置获取高级动画级别。
+ *
+ * @returns 一个字符串，表示高级动画级别。
+ */
 function createHighAnimLevel() {
     const { animLevel } = getEasyAnimCodeConfig()
     const highLevel = ANIM_LEVEL[animLevel as keyof typeof ANIM_LEVEL]
     return `${highLevel}`
 }
 
+/**
+ * 重置 Easy Anim Code 扩展的配置为默认值。
+ *
+ * 此函数用于将 Easy Anim Code 扩展的配置重置为其默认值。
+ * 它会更新 primaryColor 和 animLevel 配置项为其默认值。
+ */
 function resetEasyAnimCodeConfig() {
     const config = vscode.workspace.getConfiguration('easy-anim-code')
     config.update(EXTENSION_CONFIG.PrimaryColor.key, EXTENSION_CONFIG.PrimaryColor.default, true)
@@ -84,7 +104,7 @@ export {
     enabledRestart,
     unInstallSuccess,
     createHighAnimLevel,
+    resetEasyAnimCodeConfig,
     showIsBackUpNotification,
     createRootValStyleTemplate,
-    resetEasyAnimCodeConfig,
 }
