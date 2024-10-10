@@ -39,13 +39,13 @@ const EXTENSION_CONFIG = {
 const ANIM_LEVEL = {
     low: ``,
     high: `.part.sidebar.pane-composite-part {
-	    .pane-body {
+	     .pane-body {
             .monaco-list-row {
                 .monaco-tl-row {
                     .monaco-tl-twistie {
                         transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
                     }
-                    animation: easy-anim-slide-right 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                    animation: easy-anim-opacity-animation-low-opacity 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
                 }
             }
 

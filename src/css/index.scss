@@ -1,7 +1,7 @@
-// :root {
-//     --vscode-style-easy-anim-red-color: #2aaaff;
-//     // --vscode-style-easy-anim-red-color: inherit;
-// }
+:root {
+    --vscode-style-easy-anim-red-color: #2aaaff;
+    // --vscode-style-easy-anim-red-color: inherit;
+}
 
 .current-line.current-line-margin-both {
     border-left: 5px solid var(--vscode-style-easy-anim-red-color);
@@ -454,7 +454,7 @@
         //             .monaco-tl-twistie {
         //                 transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         //             }
-        //             animation: easy-anim-slide-right 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        //             animation: easy-anim-opacity-animation-low-opacity 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         //         }
         //     }
 
@@ -464,5 +464,14 @@
         //         }
         //     }
         // }
+    }
+}
+
+@keyframes easy-anim-opacity-animation-low-opacity {
+    0% {
+        opacity: 0.2;
+    }
+    100% {
+        opacity: 1;
     }
 }
