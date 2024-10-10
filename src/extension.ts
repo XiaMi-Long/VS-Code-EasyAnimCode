@@ -1,5 +1,5 @@
 import * as vscode from 'vscode'
-import { enabledRestart, showIsBackUpNotification, unInstallSuccess } from './common/index'
+import { enabledRestart, resetEasyAnimCodeConfig, showIsBackUpNotification, unInstallSuccess } from './common/index'
 import {
     getEasyAnimCodeExtensionsCss,
     getVSCodeWorkbenchFolderPath,
@@ -63,7 +63,9 @@ export function activate(context: vscode.ExtensionContext) {
             // 3. 删除备份文件
             await removeBackUpWorkBenchFile()
             await removeBackUpWorkBenchApcExtensionFile()
-            // 4. 弹出提示框，手动重启
+            // 4. 还原插件配置参数
+            resetEasyAnimCodeConfig()
+            // 5. 弹出提示框，手动重启
             enabledRestart()
         } catch (error) {
             vscode.window.showErrorMessage(TIPS.errorText)
@@ -78,7 +80,9 @@ export function activate(context: vscode.ExtensionContext) {
             // 2. 删除模板
             removeBackUpWorkBenchFile()
             removeBackUpWorkBenchApcExtensionFile()
-            // 3. 重启
+            // 3. 还原插件配置参数
+            resetEasyAnimCodeConfig()
+            // 4. 重启
             unInstallSuccess()
         } catch (error) {
             vscode.window.showErrorMessage(TIPS.errorText)

@@ -1,6 +1,5 @@
 import * as vscode from 'vscode'
-import { TIPS } from '../enum/tip'
-import * as fs from 'fs/promises'
+import { TIPS, EXTENSION_CONFIG } from '../enum/tip'
 
 /**
  * 重新加载当前窗口
@@ -49,4 +48,27 @@ function unInstallSuccess() {
     vscode.window.showInformationMessage(TIPS.enableText, { title: TIPS.restartText }).then(reloadWindow)
 }
 
-export { reloadWindow, enabledRestart, unInstallSuccess, showIsBackUpNotification }
+function getEasyAnimCodeConfig() {
+    const config = vscode.workspace.getConfiguration('easy-anim-code')
+    let primaryColor = config.get(EXTENSION_CONFIG.PrimaryColor.key)
+
+    return {
+        primaryColor,
+    }
+}
+
+function createRootValStyleTemplate() {
+    const { primaryColor } = getEasyAnimCodeConfig()
+    return `
+        :root {
+            --vscode-style-easy-anim-red-color: ${primaryColor};
+        }
+    `
+}
+
+function resetEasyAnimCodeConfig() {
+    const config = vscode.workspace.getConfiguration('easy-anim-code')
+    config.update(EXTENSION_CONFIG.PrimaryColor.key, EXTENSION_CONFIG.PrimaryColor.default, true)
+}
+
+export { reloadWindow, enabledRestart, unInstallSuccess, showIsBackUpNotification, createRootValStyleTemplate, resetEasyAnimCodeConfig }

@@ -1,65 +1,128 @@
-# easy-anim-code README
+# EasyAnimCode
 
-This is the README for your extension "easy-anim-code". After writing up a brief description, we recommend including the following sections.
+**EasyAnimCode** 是一个为 VSCode 添加日常操作动画过渡的扩展，旨在增强用户体验。
+样式和代码灵感来自于 **[Fluent UI for VSCode](https://marketplace.visualstudio.com/items?itemName=leandro-rodrigues.fluent-ui-vscode)**。
 
-## Features
+## 功能
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+-   为 VSCode 的常见操作添加动画效果。
+-   修改 VSCode 的基础样式，带来更美观的视觉体验。
+-   目前仅支持 Windows 平台（经测试）。
+-   推荐 VSCode 版本 `1.93` 及以上（实际可能支持更低版本）。
 
-For example if there is an image subfolder under your extension project workspace:
+## 安装
 
-\!\[feature X\]\(images/feature-x.png\)
+1. 以管理员身份运行 VSCode。
+2. 从 VSCode 扩展市场下载并安装 EasyAnimCode，或手动安装 `.vsix` 文件。
+3. 通过 VSCode 命令面板（按 `Ctrl+Shift+P`）执行 `easy-anim-code.enable` 命令启用动画效果。执行完毕后，重新加载 VSCode 以应用更改。
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+> **注意**：VSCode 重新加载后，可能会弹出一条通知，提示 VSCode 安装已损坏。这是正常现象，因为该插件修改了 VSCode 的配置文件。若不希望再次看到此通知，可点击右边的小齿轮，选择不再显示。
 
-## Requirements
+## 禁用插件
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+1. 以管理员身份运行 VSCode。
+2. 通过 VSCode 命令面板（按 `Ctrl+Shift+P`）执行 `easy-anim-code.disable` 命令禁用动画效果。执行完毕后，重新加载 VSCode。
 
-## Extension Settings
+## 重置和卸载
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+由于插件会修改本地 VSCode 的配置文件，若希望恢复 VSCode 的初始状态，可以使用以下步骤进行重置：
+**注意：卸载插件不会自动恢复 VSCode 原有状态，卸载前请先执行重置命令。**
 
-For example:
+1. 以管理员身份运行 VSCode。
+2. 通过 VSCode 命令面板（按 `Ctrl+Shift+P`）执行 `easy-anim-code.reset` 命令将设置重置为默认状态。执行完毕后，重新加载 VSCode。
 
-This extension contributes the following settings:
+> **重置注意**：重置后，若需卸载插件，直接卸载即可。
+> 若想重新启用动画，只需再次执行 `easy-anim-code.enable` 命令。
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+## 插件错误修复指南
 
-## Known Issues
+如果插件出现问题，可能会损坏 VSCode 的配置文件。你可以尝试以下步骤修复本地文件：
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+#### Windows 用户修复步骤
 
-## Release Notes
+1. 进入 VSCode 安装目录。
+2. 找到 `resources\app\out\vs\code\electron-sandbox\workbench` 文件夹。
+3. 找到 `workbench.html` 和 `workbench-apc-extension.html` 两个文件。
+4. 使用下面提供的模板替换这两个文件中的内容，保存修改后重新启动 VSCode。
 
-Users appreciate release notes as you update your extension.
+##### `workbench.html` 模板
 
-### 1.0.0
+```html
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            http-equiv="Content-Security-Policy"
+            content="
+                default-src 'none';
+                img-src 'self' data: blob: vscode-remote-resource: vscode-managed-remote-resource: https:;
+                media-src 'self';
+                frame-src 'self' vscode-webview:;
+                script-src 'self' 'unsafe-eval' blob:;
+                style-src 'self' 'unsafe-inline';
+                connect-src 'self' https: ws:;
+                font-src 'self' vscode-remote-resource: vscode-managed-remote-resource: https://*.vscode-unpkg.net;
+                require-trusted-types-for 'script';
+                trusted-types
+                    amdLoader
+                    cellRendererEditorText
+                    defaultWorkerFactory
+                    diffEditorWidget
+                    diffReview
+                    domLineBreaksComputer
+                    dompurify
+                    editorGhostText
+                    editorViewLayer
+                    notebookRenderer
+                    stickyScrollViewLayer
+                    tokenizeToString;
+            " />
+    </head>
 
-Initial release of ...
+    <body aria-label=""></body>
+    <!-- Startup (do not modify order of script tags !) -->
+    <script src="workbench.js"></script>
+</html>
+```
 
-### 1.0.1
+##### workbench-apc-extension.html 模板
 
-Fixed issue #.
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+    </head>
 
-### 1.1.0
+    <body aria-label=""></body>
+    <!-- Startup (do not modify order of script tags!) -->
+    <script src="../../../patch/browser.main.js"></script>
+    <script src="workbench.js"></script>
+</html>
+```
 
-Added features X, Y, and Z.
+**如果上述方法无法解决问题，请尝试重新安装 VSCode。**
 
----
+## 插件配置
 
-## Working with Markdown
+> 考虑到不同用户使用的主题插件不同，如果直接使用默认插件，可能于用户的主题有颜色和样式的冲突，所以插件提供了一些配置选项，你可以在 VSCode 设置中进行修改。
 
-You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
+![setting](./image/setting.png)
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets
+-   `Easy-anim-code.PrimaryColor`: 主色调，用于设置插件的主要颜色。
 
-## For more information
+> 配置选项的值，只允许 16 进制的颜色，如果需要不显示颜色，可以考虑加上透明度 100%
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+## 致谢
 
-**Enjoy!**
+在此特别感谢以下插件和 CSS 库对本项目的启发和帮助：
+
+-   [Fluent UI for VSCode](https://marketplace.visualstudio.com/items?itemName=leandro-rodrigues.fluent-ui-vscode)：为部分样式和此插件的底层实现提供给了灵感。
+-   [Apc Customize UI++ ](https://marketplace.visualstudio.com/items?itemName=drcika.apc-extension)：提供了本地开发测试的关键支持。
+-   [CSS：Animista](https://animista.net/play)：为此插件的动画效果提供支持。
+
+本插件的创建，离不开上述插件的贡献！
+
+<!-- ## 界面预览 -->

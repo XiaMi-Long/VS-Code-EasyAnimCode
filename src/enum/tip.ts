@@ -1,3 +1,4 @@
+// 消息弹窗的文字枚举
 const TIPS = {
     enableText: '来自easy-anim-code的提示',
     restartText: 'restart',
@@ -5,19 +6,30 @@ const TIPS = {
     errorText: '执行出现异常',
 }
 
+// 命令枚举
 const COMMANDS = {
     enable: 'easy-anim-code.enable',
     disable: 'easy-anim-code.disable',
     reset: 'easy-anim-code.reset',
 }
 
+// 备份文件的后缀
 const BACKUP_FILE_SUFFIX = 'easy-anim-code-backup-'
 
+// 主文件枚举
 const PRIMARY_FILE = {
     workbench: 'workbench.html',
     workbenchApcExtension: 'workbench-apc-extension.html',
     backupWorkbench: BACKUP_FILE_SUFFIX + 'workbench.html',
     backupWorkbenchApcExtension: BACKUP_FILE_SUFFIX + 'workbench-apc-extension.html',
+}
+
+// 扩展配置枚举
+const EXTENSION_CONFIG = {
+    PrimaryColor: {
+        key: 'PrimaryColor',
+        default: '#2aaaff',
+    },
 }
 
 const WORKBENCH_HTML_TEMPLATE = `<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
@@ -107,4 +119,12 @@ const WORKBENCH_APC_EXTENSION_HTML_TEMPLATE = `<!DOCTYPE html>
 
 </html>`
 
-export { TIPS, BACKUP_FILE_SUFFIX, PRIMARY_FILE, COMMANDS, WORKBENCH_HTML_TEMPLATE, WORKBENCH_APC_EXTENSION_HTML_TEMPLATE }
+export {
+    TIPS,
+    BACKUP_FILE_SUFFIX,
+    PRIMARY_FILE,
+    COMMANDS,
+    WORKBENCH_HTML_TEMPLATE,
+    WORKBENCH_APC_EXTENSION_HTML_TEMPLATE,
+    EXTENSION_CONFIG,
+}

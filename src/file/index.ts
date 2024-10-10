@@ -2,6 +2,7 @@ import * as path from 'path'
 import * as vscode from 'vscode'
 import * as fs from 'fs/promises'
 import { PRIMARY_FILE } from '../enum/tip'
+import { createRootValStyleTemplate } from '../common'
 
 /**
  * 异步获取 Easy Anim Code 扩展的 CSS 文件内容
@@ -70,7 +71,8 @@ async function getVSCodeWorkbenchFolderPath() {
  * @returns {string} - 新的 HTML 文本，其中包含了嵌入的 CSS 样式
  */
 function getResultHtml(workbenchText: string, cssText: string) {
-    return workbenchText?.replace(/(<\/head>)/, `\n<style>${cssText}</style>\n</head>`)
+    const rootVal = createRootValStyleTemplate()
+    return workbenchText?.replace(/(<\/head>)/, `\n<style>${rootVal} ${cssText}</style>\n</head>`)
 }
 
 /**

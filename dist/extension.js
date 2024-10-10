@@ -85,7 +85,9 @@ function activate(context) {
             // 3. 删除备份文件
             await (0, index_2.removeBackUpWorkBenchFile)();
             await (0, index_2.removeBackUpWorkBenchApcExtensionFile)();
-            // 4. 弹出提示框，手动重启
+            // 4. 还原插件配置参数
+            (0, index_1.resetEasyAnimCodeConfig)();
+            // 5. 弹出提示框，手动重启
             (0, index_1.enabledRestart)();
         }
         catch (error) {
@@ -100,7 +102,9 @@ function activate(context) {
             // 2. 删除模板
             (0, index_2.removeBackUpWorkBenchFile)();
             (0, index_2.removeBackUpWorkBenchApcExtensionFile)();
-            // 3. 重启
+            // 3. 还原插件配置参数
+            (0, index_1.resetEasyAnimCodeConfig)();
+            // 4. 重启
             (0, index_1.unInstallSuccess)();
         }
         catch (error) {
@@ -153,6 +157,8 @@ exports.reloadWindow = reloadWindow;
 exports.enabledRestart = enabledRestart;
 exports.unInstallSuccess = unInstallSuccess;
 exports.showIsBackUpNotification = showIsBackUpNotification;
+exports.createRootValStyleTemplate = createRootValStyleTemplate;
+exports.resetEasyAnimCodeConfig = resetEasyAnimCodeConfig;
 const vscode = __importStar(__webpack_require__(1));
 const tip_1 = __webpack_require__(3);
 /**
@@ -198,6 +204,25 @@ function enabledRestart() {
 function unInstallSuccess() {
     vscode.window.showInformationMessage(tip_1.TIPS.enableText, { title: tip_1.TIPS.restartText }).then(reloadWindow);
 }
+function getEasyAnimCodeConfig() {
+    const config = vscode.workspace.getConfiguration('easy-anim-code');
+    let primaryColor = config.get(tip_1.EXTENSION_CONFIG.PrimaryColor.key);
+    return {
+        primaryColor,
+    };
+}
+function createRootValStyleTemplate() {
+    const { primaryColor } = getEasyAnimCodeConfig();
+    return `
+        :root {
+            --vscode-style-easy-anim-red-color: ${primaryColor};
+        }
+    `;
+}
+function resetEasyAnimCodeConfig() {
+    const config = vscode.workspace.getConfiguration('easy-anim-code');
+    config.update(tip_1.EXTENSION_CONFIG.PrimaryColor.key, tip_1.EXTENSION_CONFIG.PrimaryColor.default, true);
+}
 
 
 /***/ }),
@@ -206,7 +231,8 @@ function unInstallSuccess() {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.WORKBENCH_APC_EXTENSION_HTML_TEMPLATE = exports.WORKBENCH_HTML_TEMPLATE = exports.COMMANDS = exports.PRIMARY_FILE = exports.BACKUP_FILE_SUFFIX = exports.TIPS = void 0;
+exports.EXTENSION_CONFIG = exports.WORKBENCH_APC_EXTENSION_HTML_TEMPLATE = exports.WORKBENCH_HTML_TEMPLATE = exports.COMMANDS = exports.PRIMARY_FILE = exports.BACKUP_FILE_SUFFIX = exports.TIPS = void 0;
+// 消息弹窗的文字枚举
 const TIPS = {
     enableText: '来自easy-anim-code的提示',
     restartText: 'restart',
@@ -214,14 +240,17 @@ const TIPS = {
     errorText: '执行出现异常',
 };
 exports.TIPS = TIPS;
+// 命令枚举
 const COMMANDS = {
     enable: 'easy-anim-code.enable',
     disable: 'easy-anim-code.disable',
     reset: 'easy-anim-code.reset',
 };
 exports.COMMANDS = COMMANDS;
+// 备份文件的后缀
 const BACKUP_FILE_SUFFIX = 'easy-anim-code-backup-';
 exports.BACKUP_FILE_SUFFIX = BACKUP_FILE_SUFFIX;
+// 主文件枚举
 const PRIMARY_FILE = {
     workbench: 'workbench.html',
     workbenchApcExtension: 'workbench-apc-extension.html',
@@ -229,6 +258,14 @@ const PRIMARY_FILE = {
     backupWorkbenchApcExtension: BACKUP_FILE_SUFFIX + 'workbench-apc-extension.html',
 };
 exports.PRIMARY_FILE = PRIMARY_FILE;
+// 扩展配置枚举
+const EXTENSION_CONFIG = {
+    PrimaryColor: {
+        key: 'PrimaryColor',
+        default: '#2aaaff',
+    },
+};
+exports.EXTENSION_CONFIG = EXTENSION_CONFIG;
 const WORKBENCH_HTML_TEMPLATE = `<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <!DOCTYPE html>
 <html>
@@ -361,6 +398,7 @@ const path = __importStar(__webpack_require__(5));
 const vscode = __importStar(__webpack_require__(1));
 const fs = __importStar(__webpack_require__(6));
 const tip_1 = __webpack_require__(3);
+const common_1 = __webpack_require__(2);
 /**
  * 异步获取 Easy Anim Code 扩展的 CSS 文件内容
  *
@@ -422,7 +460,8 @@ async function getVSCodeWorkbenchFolderPath() {
  * @returns {string} - 新的 HTML 文本，其中包含了嵌入的 CSS 样式
  */
 function getResultHtml(workbenchText, cssText) {
-    return workbenchText?.replace(/(<\/head>)/, `\n<style>${cssText}</style>\n</head>`);
+    const rootVal = (0, common_1.createRootValStyleTemplate)();
+    return workbenchText?.replace(/(<\/head>)/, `\n<style>${rootVal} ${cssText}</style>\n</head>`);
 }
 /**
  * 检查备份文件是否存在

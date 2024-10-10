@@ -1,14 +1,17 @@
-:root {
-    --vscode-style-plus-primary-color: #e73778;
-}
+// :root {
+//     --vscode-style-easy-anim-red-color: #2aaaff;
+//     // --vscode-style-easy-anim-red-color: inherit;
+
+//     --vscode-style-easy-anim-gray-color: #767676fc;
+// }
 
 .current-line.current-line-margin-both {
-    border-left: 5px solid var(--vscode-style-plus-primary-color) !important;
+    border-left: 5px solid var(--vscode-style-easy-anim-red-color);
     transition: border-left-width 0.2s ease-out;
-    animation: border-left-width-animation 0.2s ease-out;
+    animation: easy-anim-border-left-width-animation 0.2s ease-out;
 }
 
-@keyframes border-left-width-animation {
+@keyframes easy-anim-border-left-width-animation {
     0% {
         border-left-width: 0px;
     }
@@ -17,9 +20,11 @@
     }
 }
 
+.tab .tab-actions-right .sizing-fit {
+    transition: all 0.2s;
+}
 .tab.tab-actions-right.active.selected {
-    position: relative;
-    transition: opacity 0.2s ease-out;
+    color: var(--vscode-style-easy-anim-red-color) !important;
 }
 .tab.tab-actions-right.active.selected::after {
     content: '';
@@ -29,12 +34,12 @@
     height: 2px;
     left: 50%;
     bottom: 0px;
-    animation: opacity-animation 0.2s ease-out;
+    animation: easy-anim-opacity-animation 0.2s ease-out;
     transform: translateX(-50%);
-    background-color: var(--vscode-style-plus-primary-color);
+    background-color: var(--vscode-style-easy-anim-red-color);
 }
 
-@keyframes opacity-animation {
+@keyframes easy-anim-opacity-animation {
     0% {
         opacity: 0;
     }
@@ -44,23 +49,33 @@
 }
 
 .overflowingContentWidgets .editor-widget.suggest-widget {
-    padding: 20px !important;
-    border-radius: 6px !important;
-    backdrop-filter: blur(10px) !important;
-    background-color: #2a2b2b50 !important;
+    padding: 20px;
+    border-radius: 6px;
+    backdrop-filter: blur(10px);
+    background-color: #2a2b2b50;
 
     .monaco-list-row {
-        border-left: 5px solid var(--vscode-style-plus-primary-color) !important;
-        border-left-width: 0px !important;
-        transition: border-left-width 0.2s ease-in !important;
+        border-left: 3px solid var(--vscode-style-easy-anim-red-color);
+        border-left-width: 0px;
+        transition: border-left-width 0.2s ease-in;
+        animation: easy-anim-fade-in 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
         &:hover {
-            border-left-width: 5px;
+            border-left-width: 3px;
             background-color: rgb(81, 80, 80) !important;
         }
         &.focused {
             background-color: rgb(81, 80, 80) !important;
         }
+    }
+}
+
+@keyframes easy-anim-fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }
 
@@ -74,14 +89,14 @@
             height: 18px;
             top: 2px;
             border-radius: 25px;
-            background-color: var(--vscode-style-plus-primary-color);
+            background-color: var(--vscode-style-easy-anim-red-color);
         }
     }
 }
 
 .extensions-list {
     .monaco-list-row {
-        animation: slide-right 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+        animation: easy-anim-slide-right 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
     }
 }
 
@@ -95,20 +110,20 @@
             height: 18px;
             top: 2px;
             border-radius: 25px;
-            background-color: var(--vscode-style-plus-primary-color);
+            background-color: var(--vscode-style-easy-anim-red-color);
         }
-        animation: slide-right 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+        animation: easy-anim-slide-right 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
     }
 }
 
 .tabs-and-actions-container {
     .tab {
-        transition: all 0.3s ease-out;
-        animation: slide-right 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+        transition: all 0.2s;
+        animation: easy-anim-slide-right 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
     }
 }
 
-@keyframes slide-right {
+@keyframes easy-anim-slide-right {
     0% {
         transform: translateX(-100px);
     }
@@ -120,24 +135,39 @@
 .titlebar-container {
     .menubar-menu-button {
         .menubar-menu-items-holder.monaco-menu-container {
-            animation: slide-top 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+            animation: easy-anim-slide-top 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
         }
     }
 }
 
 .quick-input-widget.show-file-icons {
-    animation: slide-top 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    background-color: #4c4c4c1c !important;
+    backdrop-filter: blur(10px);
+    animation: easy-anim-slide-top 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+
+    .quick-input-header {
+        .quick-input-and-message .quick-input-filter .quick-input-box {
+            .monaco-inputbox.idle {
+                background-color: transparent !important;
+            }
+        }
+    }
 
     .quick-input-list {
+        background-color: #ff000000 !important;
+        .monaco-list {
+            background-color: #ff000000 !important;
+        }
         .monaco-list-rows {
+            background-color: #ff000000 !important;
             .monaco-list-row {
-                animation: slide-right 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+                animation: easy-anim-slide-right 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
             }
         }
     }
 }
 
-@keyframes slide-top {
+@keyframes easy-anim-slide-top {
     0% {
         transform: translateY(20px);
     }
@@ -147,14 +177,14 @@
 }
 
 .context-view.monaco-component.monaco-menu-container {
-    animation: scale-in-ver-top 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    animation: easy-anim-scale-in-ver-top 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 .shadow-root-host {
     .context-view.monaco-component.monaco-menu-container {
-        animation: scale-in-ver-top 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+        animation: easy-anim-scale-in-ver-top 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
     }
 }
-@keyframes scale-in-ver-top {
+@keyframes easy-anim-scale-in-ver-top {
     0% {
         transform: scaleY(0);
         transform-origin: 100% 0%;
@@ -164,5 +194,184 @@
         transform: scaleY(1);
         transform-origin: 100% 0%;
         opacity: 1;
+    }
+}
+
+.editor-widget.find-widget {
+    width: 60% !important;
+    animation: slide-in-blurred-top-reverse 0.2s cubic-bezier(0.23, 1, 0.32, 1) both;
+
+    backdrop-filter: blur(10px);
+    background-color: #2a2b2b50;
+    box-sizing: content-box;
+    padding: 10px;
+    border-radius: 5px;
+
+    .monaco-inputbox.idle {
+        backdrop-filter: blur(10px);
+        background-color: #2a2b2b50 !important;
+    }
+}
+
+.editor-widget.find-widget.visible {
+    animation: easy-anim-slide-in-blurred-top 0.2s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+@keyframes easy-anim-slide-in-blurred-top {
+    0% {
+        transform: translateY(0px);
+        filter: blur(10px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(50px);
+        filter: blur(0);
+        opacity: 1;
+    }
+}
+
+// @keyframes slide-in-blurred-top-reverse {
+//     0% {
+//         transform: translateY(50px);
+//         opacity: 0;
+//     }
+//     100% {
+//         transform: translateY(0px);
+//         opacity: 0;
+//     }
+// }
+
+.editor-group-container {
+    .tabs {
+        .breadcrumbs-below-tabs {
+            .outline-element.monaco-breadcrumb-item {
+                animation: easy-anim-fade-in-left 0.3s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+            }
+        }
+    }
+}
+
+@keyframes easy-anim-fade-in-left {
+    0% {
+        -webkit-transform: translateX(-50px);
+        transform: translateX(-50px);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.codicon-tree-item-expanded:before {
+    transition: transform 0.3s ease-in;
+}
+
+.title.tabs.show-file-icons {
+    background-color: transparent !important;
+    .monaco-scrollable-element {
+        .tab {
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            margin-right: 6px;
+            border-right: 0px;
+        }
+        .tab:nth-child(1) {
+            margin-left: 6px;
+        }
+        .tab:nth-child(n + 2)::before {
+            content: '';
+            position: absolute;
+            top: 25%;
+            height: 50%;
+            left: -3px;
+            bottom: 0;
+            width: 1px;
+            background-color: var(--vscode-tab-activeForeground);
+        }
+    }
+}
+
+.editor-container {
+    .monaco-editor {
+        animation: easy-anim-slide-right 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+}
+
+.action-label.codicon.codicon-settings-view-bar-icon:hover::before {
+    animation: easy-anim-rotate-in-center 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    transition: transform 0.5s; /* 旋转动画持续0.5秒，缓进缓出 */
+}
+
+@keyframes easy-anim-rotate-in-center {
+    0% {
+        transform: rotate(-180deg);
+        opacity: 0;
+    }
+    100% {
+        transform: rotate(0);
+        opacity: 1;
+    }
+}
+
+.monaco-workbench .part.panel .composite.title {
+    padding: 10px 0 0 0;
+    height: 45px;
+
+    border: none !important;
+
+    .action-item {
+        min-width: 50px;
+        &.checked {
+            border-top-right-radius: 5px;
+            border-top-left-radius: 5px;
+            color: white;
+            background-color: var(--vscode-tab-activeBackground);
+        }
+        .active-item-indicator {
+            display: none;
+        }
+    }
+}
+
+.monaco-workbench .part.editor > .content .editor-group-container {
+    padding-top: 15px;
+}
+
+.monaco-workbench .activitybar > .content :not(.monaco-menu) > .monaco-action-bar .action-label.codicon {
+    font-size: 20px !important;
+}
+
+.monaco-workbench .activitybar > .content :not(.monaco-menu) > .monaco-action-bar .action-label {
+    height: 40px;
+}
+
+.monaco-workbench .activitybar > .content :not(.monaco-menu) > .monaco-action-bar .action-item.checked .active-item-indicator:before {
+    left: 5px !important;
+    height: 60% !important;
+    top: 20% !important;
+    border-left: solid 4px var(--vscode-style-easy-anim-red-color) !important;
+
+    animation: easy-anim-fade-in-left 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.part.sidebar.left.pane-composite-part {
+    padding: 10px;
+    height: 100%;
+
+    .composite.title {
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+        height: 45px;
+        .title-label {
+            line-height: 45px;
+        }
+    }
+    .content {
+        width: 100% !important;
+        height: calc(100% - 45px) !important;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
     }
 }
