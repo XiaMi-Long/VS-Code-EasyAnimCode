@@ -9,7 +9,7 @@
 -   为 VSCode 的常见操作添加动画效果。
 -   修改 VSCode 的基础样式，带来更美观的视觉体验。
 -   目前仅确定支持 Windows 平台（其他平台尚未测试）。
--   推荐 VSCode 版本 `1.93` 及以上。
+-   **本插件 `v0.0.2` 支持 VSCode 版本 `1.94`**。
 
 ## 安装
 
@@ -48,12 +48,96 @@ VSCode 更新之后，需要重新执行 `easy-anim-code.enable` 命令启用动
 
 #### Windows 用户修复步骤
 
+#### VSCode 1.94 版本修复流程
+
 1. 进入 VSCode 安装目录。
 2. 找到 `resources\app\out\vs\code\electron-sandbox\workbench` 文件夹。
-3. 找到 `workbench.html` 和 `workbench-apc-extension.html` 两个文件。
-4. 使用下面提供的模板替换这两个文件中的内容，保存修改后重新启动 VSCode。
+3. 找到 `workbench.esm.html` 文件。
+4. 使用下面提供的模板替换这个文件中的内容，保存修改后重新启动 VSCode。
 
-##### `workbench.html` 模板
+#### ~~VSCode 1.93 版本修复流程~~
+
+~~1. 进入 VSCode 安装目录。 2. 找到 `resources\app\out\vs\code\electron-sandbox\workbench` 文件夹。 3. 找到 `workbench.html` 和 `workbench-apc-extension.html` 两个文件。 4. 使用下面提供的模板替换这两个文件中的内容，保存修改后重新启动 VSCode。~~
+
+#### `workbench.esm.html` 模板
+
+```html
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            http-equiv="Content-Security-Policy"
+            content="
+				default-src
+					'none'
+				;
+				img-src
+					'self'
+					data:
+					blob:
+					vscode-remote-resource:
+					vscode-managed-remote-resource:
+					https:
+				;
+				media-src
+					'self'
+				;
+				frame-src
+					'self'
+					vscode-webview:
+				;
+				script-src
+					'self'
+					'unsafe-eval'
+					blob:
+				;
+				style-src
+					'self'
+					'unsafe-inline'
+				;
+				connect-src
+					'self'
+					https:
+					ws:
+				;
+				font-src
+					'self'
+					vscode-remote-resource:
+					vscode-managed-remote-resource:
+					https://*.vscode-unpkg.net
+				;
+				require-trusted-types-for
+					'script'
+				;
+				trusted-types
+					amdLoader
+					cellRendererEditorText
+					defaultWorkerFactory
+					diffEditorWidget
+					diffReview
+					domLineBreaksComputer
+					dompurify
+					editorGhostText
+					editorViewLayer
+					notebookRenderer
+					stickyScrollViewLayer
+					tokenizeToString
+				;
+		" />
+    </head>
+
+    <body aria-label=""></body>
+
+    <!-- Startup (do not modify order of script tags!) -->
+    <script
+        src="./workbench.js"
+        type="module"></script>
+</html>
+```
+
+##### ~~`workbench.html` 模板~~
 
 ```html
 <!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
@@ -95,7 +179,7 @@ VSCode 更新之后，需要重新执行 `easy-anim-code.enable` 命令启用动
 </html>
 ```
 
-##### `workbench-apc-extension.html` 模板
+##### ~~`workbench-apc-extension.html` 模板~~
 
 ```html
 <!DOCTYPE html>
@@ -127,6 +211,13 @@ VSCode 更新之后，需要重新执行 `easy-anim-code.enable` 命令启用动
 > 配置值需使用 16 进制颜色代码，支持透明度设置。若修改配置，需先执行 easy-anim-code.disable，再运行 easy-anim-code.enable 并重启 VSCode 以应用更改。
 
 **请注意：每次运行 `easy-anim-code.disable` 命令之后，配置会被重置为默认值。**
+
+## 安装其他版本，以支持更低版本的 VSCode
+
+| 插件版本 | 对应 VSCode 版本 | 安装                                                                                                               | 文档                                                                                                          |
+| -------- | ---------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
+| v0.0.1   | 1.93             | 最新                                                                                                               | 最新                                                                                                          |
+| v0.0.2   | 1.94             | [链接](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/releases/tag/v1.93.0%2B) visx 安装包直接拖入 VSCode 即可 | [链接](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/tree/branch-v1.93.0%2B)此链接为 v0.0.2 分支下的文档 |
 
 ## 致谢
 

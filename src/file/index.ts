@@ -14,6 +14,7 @@ async function getEasyAnimCodeExtensionsCss() {
     const text = await fs.readFile(path, 'utf8').catch((err) => {
         vscode.window.showErrorMessage(err)
     })
+
     return text
 }
 
@@ -38,11 +39,8 @@ function getPrimaryFilePath(fileName: string) {
 
     const filePaths: Record<string, string> = {
         [PRIMARY_FILE.workbench]: PRIMARY_FILE.workbench,
-        [PRIMARY_FILE.workbenchApcExtension]: PRIMARY_FILE.workbenchApcExtension,
         [PRIMARY_FILE.backupWorkbench]: PRIMARY_FILE.backupWorkbench,
-        [PRIMARY_FILE.backupWorkbenchApcExtension]: PRIMARY_FILE.backupWorkbenchApcExtension,
     }
-
     return filePaths[fileName] ? path.join(workbenchFolder, filePaths[fileName]) : workbenchFolder
 }
 
@@ -53,14 +51,10 @@ function getPrimaryFilePath(fileName: string) {
  */
 async function getVSCodeWorkbenchFolderPath() {
     const workbenchPath = getPrimaryFilePath(PRIMARY_FILE.workbench)
-    const workbenchApcExtensionPath = getPrimaryFilePath(PRIMARY_FILE.workbenchApcExtension)
     const workbenchText = await fs.readFile(workbenchPath, 'utf8').catch((err) => {
         vscode.window.showErrorMessage(err)
     })
-    const workbenchApcExtensionText = await fs.readFile(workbenchApcExtensionPath, 'utf8').catch((err) => {
-        vscode.window.showErrorMessage(err)
-    })
-    return { workbenchText, workbenchApcExtensionText }
+    return { workbenchText }
 }
 
 /**
@@ -102,10 +96,10 @@ async function checkIfBackupFileExists(filePath: string) {
  * @returns 如果文件复制成功，返回 undefined。如果文件复制失败，返回错误对象。
  */
 async function backupFile(src: string, source: string) {
-    const err = (await fs.copyFile(src, source)) as void | object
-    if (err) {
+    await fs.copyFile(src, source).catch((err) => {
         vscode.window.showErrorMessage(`备份文件失败: ${err}`)
-    }
+    })
+    return true
 }
 
 /**
@@ -119,21 +113,7 @@ async function backupWorkbench() {
     const backUpWorkbench = getPrimaryFilePath(PRIMARY_FILE.backupWorkbench)
 
     if (await checkIfBackupFileExists(backUpWorkbench)) return false
-    backupFile(workbench, backUpWorkbench)
-    return true
-}
-
-/**
- * 备份当前工作区的 APC 扩展文件。
- * 如果备份文件已存在，则不进行备份。
- *
- * @returns {Promise<boolean>} 如果备份成功，返回 true；如果备份文件已存在，返回 false。
- */
-async function backupWorkbenchApcExtension() {
-    const apiExtensionWorkbench = getPrimaryFilePath(PRIMARY_FILE.workbenchApcExtension)
-    const backUpApcExtensionWorkbench = getPrimaryFilePath(PRIMARY_FILE.backupWorkbenchApcExtension)
-    if (await checkIfBackupFileExists(backUpApcExtensionWorkbench)) return false
-    backupFile(apiExtensionWorkbench, backUpApcExtensionWorkbench)
+    await backupFile(workbench, backUpWorkbench)
     return true
 }
 
@@ -147,19 +127,13 @@ async function backupWorkbenchApcExtension() {
  */
 async function getBackupWorkbenchFile() {
     const backupWorkbenchPath = getPrimaryFilePath(PRIMARY_FILE.backupWorkbench)
-    const backupWorkbenchApcExtensionPath = getPrimaryFilePath(PRIMARY_FILE.backupWorkbenchApcExtension)
 
     const backupWorkbenchText = await fs.readFile(backupWorkbenchPath, 'utf8').catch((err) => {
         vscode.window.showErrorMessage(err)
     })
 
-    const backupWorkbenchApcExtensionText = await fs.readFile(backupWorkbenchApcExtensionPath, 'utf8').catch((err) => {
-        vscode.window.showErrorMessage(err)
-    })
-
     return {
         backupWorkbenchText,
-        backupWorkbenchApcExtensionText,
     }
 }
 
@@ -175,20 +149,7 @@ async function removeBackUpWorkBenchFile() {
     await fs.unlink(getPrimaryFilePath(PRIMARY_FILE.backupWorkbench)).catch((err) => {
         vscode.window.showErrorMessage(err)
     })
-}
-
-/**
- * 删除备份的工作区 APC 扩展文件。
- * 这个函数会尝试删除指定的备份文件路径。
- * 如果文件删除成功，函数将不会返回任何内容。
- * 如果文件删除失败，函数将显示一个错误消息。
- *
- * @returns {Promise<void>} 如果文件删除成功，返回 undefined。如果文件删除失败，返回错误对象。
- */
-async function removeBackUpWorkBenchApcExtensionFile() {
-    await fs.unlink(getPrimaryFilePath(PRIMARY_FILE.backupWorkbenchApcExtension)).catch((err) => {
-        vscode.window.showErrorMessage(err)
-    })
+    return true
 }
 
 /**
@@ -202,6 +163,7 @@ async function writeFile(workbenchPath: string, htmlText: string) {
     await fs.writeFile(workbenchPath, htmlText, 'utf8').catch((err) => {
         vscode.window.showErrorMessage(err)
     })
+
     return true
 }
 
@@ -212,8 +174,6 @@ export {
     getPrimaryFilePath,
     getBackupWorkbenchFile,
     removeBackUpWorkBenchFile,
-    backupWorkbenchApcExtension,
     getEasyAnimCodeExtensionsCss,
     getVSCodeWorkbenchFolderPath,
-    removeBackUpWorkBenchApcExtensionFile,
 }

@@ -18,10 +18,8 @@ const BACKUP_FILE_SUFFIX = 'easy-anim-code-backup-'
 
 // 主文件枚举
 const PRIMARY_FILE = {
-    workbench: 'workbench.html',
-    workbenchApcExtension: 'workbench-apc-extension.html',
-    backupWorkbench: BACKUP_FILE_SUFFIX + 'workbench.html',
-    backupWorkbenchApcExtension: BACKUP_FILE_SUFFIX + 'workbench-apc-extension.html',
+    workbench: 'workbench.esm.html',
+    backupWorkbench: BACKUP_FILE_SUFFIX + 'workbench.esm.html',
 }
 
 // 扩展配置枚举
@@ -63,10 +61,11 @@ const ANIM_LEVEL = {
 const WORKBENCH_HTML_TEMPLATE = `<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <!DOCTYPE html>
 <html>
-
-<head>
-	<meta charset="utf-8" />
-	<meta http-equiv="Content-Security-Policy" content="
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			http-equiv="Content-Security-Policy"
+			content="
 				default-src
 					'none'
 				;
@@ -122,39 +121,15 @@ const WORKBENCH_HTML_TEMPLATE = `<!-- Copyright (C) Microsoft Corporation. All r
 					stickyScrollViewLayer
 					tokenizeToString
 				;
-		" />
+		"/>
+	</head>
 
-</head>
+	<body aria-label="">
+	</body>
 
-<body aria-label=""></body>
-<!-- Startup (do not modify order of script tags !) -->
-<script src="workbench.js"></script>
+	<!-- Startup (do not modify order of script tags!) -->
+	<script src="./workbench.js" type="module"></script>
+</html>
+`
 
-</html>`
-
-// 扩展主文件原始备份模板
-const WORKBENCH_APC_EXTENSION_HTML_TEMPLATE = `<!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="utf-8" />
-
-</head>
-
-<body aria-label=""></body>
-<!-- Startup (do not modify order of script tags!) -->
-<script src="../../../patch/browser.main.js"></script>
-<script src="workbench.js"></script>
-
-</html>`
-
-export {
-    TIPS,
-    COMMANDS,
-    ANIM_LEVEL,
-    PRIMARY_FILE,
-    EXTENSION_CONFIG,
-    BACKUP_FILE_SUFFIX,
-    WORKBENCH_HTML_TEMPLATE,
-    WORKBENCH_APC_EXTENSION_HTML_TEMPLATE,
-}
+export { TIPS, COMMANDS, ANIM_LEVEL, PRIMARY_FILE, EXTENSION_CONFIG, BACKUP_FILE_SUFFIX, WORKBENCH_HTML_TEMPLATE }
