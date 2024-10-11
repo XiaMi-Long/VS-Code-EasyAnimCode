@@ -55,7 +55,7 @@ VSCode 更新之后，需要重新执行 `easy-anim-code.enable` 命令启用动
 3. 找到 `workbench.esm.html` 文件。
 4. 使用下面提供的模板替换这个文件中的内容，保存修改后重新启动 VSCode。
 
-~~ #### VSCode 1.93 版本修复流程 ~~
+#### ~~VSCode 1.93 版本修复流程（最新版本已不支持）~~
 
 ~~1. 进入 VSCode 安装目录。 2. 找到 `resources\app\out\vs\code\electron-sandbox\workbench` 文件夹。 3. 找到 `workbench.html` 和 `workbench-apc-extension.html` 两个文件。 4. 使用下面提供的模板替换这两个文件中的内容，保存修改后重新启动 VSCode。~~
 
@@ -137,7 +137,7 @@ VSCode 更新之后，需要重新执行 `easy-anim-code.enable` 命令启用动
 </html>
 ```
 
-##### ~~`workbench.html` 模板~~
+##### ~~`workbench.html` 模板（最新版本已不支持）~~
 
 ```html
 <!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
@@ -179,7 +179,7 @@ VSCode 更新之后，需要重新执行 `easy-anim-code.enable` 命令启用动
 </html>
 ```
 
-##### ~~`workbench-apc-extension.html` 模板~~
+##### ~~`workbench-apc-extension.html` 模板（最新版本已不支持）~~
 
 ```html
 <!DOCTYPE html>
