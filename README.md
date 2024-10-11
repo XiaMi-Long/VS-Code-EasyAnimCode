@@ -216,8 +216,8 @@ VSCode 更新之后，需要重新执行 `easy-anim-code.enable` 命令启用动
 
 | 插件版本 | 对应 VSCode 版本 | 安装                                                                                                               | 文档                                                                                                          |
 | -------- | ---------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
-| v0.0.1   | 1.93             | 最新                                                                                                               | 最新                                                                                                          |
-| v0.0.2   | 1.94             | [链接](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/releases/tag/v1.93.0%2B) visx 安装包直接拖入 VSCode 即可 | [链接](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/tree/branch-v1.93.0%2B)此链接为 v0.0.2 分支下的文档 |
+| v0.0.2   | 1.94             | 最新                                                                                                               | 最新                                                                                                          |
+| v0.0.1   | 1.93             | [链接](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/releases/tag/v1.93.0%2B) visx 安装包直接拖入 VSCode 即可 | [链接](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/tree/branch-v1.93.0%2B)此链接为 v0.0.2 分支下的文档 |
 
 ## 致谢
 
