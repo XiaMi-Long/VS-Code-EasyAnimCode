@@ -220,8 +220,8 @@ To avoid conflicts with users' theme plugins, EasyAnimCode provides several conf
 
 | Plugin Version | Corresponding VSCode Version | Installation                                                                                                                               | Documentation                                                                                                                                |
 | -------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| v0.0.1         | 1.93                         | Latest                                                                                                                                     | Latest                                                                                                                                       |
-| v0.0.2         | 1.94                         | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/releases/tag/v1.93.0%2B) Drag the visx installation package directly into VSCode | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/tree/branch-v1.93.0%2B) This link contains the documentation for the v0.0.2 branch |
+| v0.0.2         | 1.94                         | Latest                                                                                                                                     | Latest                                                                                                                                       |
+| v0.0.1         | 1.93                         | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/releases/tag/v1.93.0%2B) Drag the visx installation package directly into VSCode | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/tree/branch-v1.93.0%2B) This link contains the documentation for the v0.0.2 branch |
 
 ## Acknowledgments
 
@@ -277,7 +277,7 @@ The creation of this plugin would not have been possible without the contributio
 
 #### Code
 
-![Code](./image/Code动画.gif)
+![Code](./image/code动画.gif)
 
 #### Notifications
 
