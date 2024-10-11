@@ -56,7 +56,7 @@ If the extension causes issues and damages VSCode's configuration files, you can
 3. Find the files `workbench.esm.html` .
 4. Replace the content of these files with the templates provided below. After saving the changes, restart VSCode.
 
-#### ~~VSCode 1.93 Version Repair Process~~
+#### ~~VSCode 1.93 Version Repair Process(The latest version is no longer supported)~~
 
 1. Go to the VSCode installation directory.
 2. Locate the `resources\app\out\vs\code\electron-sandbox\workbench` folder.
@@ -141,7 +141,7 @@ If the extension causes issues and damages VSCode's configuration files, you can
 </html>
 ```
 
-##### ~~`workbench.html` Template~~
+##### ~~`workbench.html` Template(The latest version is no longer supported.)~~
 
 ```html
 <!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
@@ -183,7 +183,7 @@ If the extension causes issues and damages VSCode's configuration files, you can
 </html>
 ```
 
-##### ~~`workbench-apc-extension.html` Template~~
+##### ~~`workbench-apc-extension.html` Template(The latest version is no longer supported.)~~
 
 ```html
 <!DOCTYPE html>
