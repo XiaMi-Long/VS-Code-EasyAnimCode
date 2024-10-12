@@ -1,6 +1,6 @@
 // :root {
-//     --vscode-style-easy-anim-red-color: #2aaaff;
-//     // --vscode-style-easy-anim-red-color: inherit;
+// --vscode-style-easy-anim-red-color: #2aaaff;
+// --vscode-style-easy-anim-red-color: inherit;
 // }
 
 .current-line.current-line-margin-both {
@@ -315,9 +315,6 @@
 }
 
 .monaco-workbench .part.panel .composite.title {
-    padding: 10px 0 0 0;
-    height: 45px;
-
     border: none !important;
 
     .action-item {
