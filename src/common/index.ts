@@ -1,4 +1,4 @@
-import sharp from 'sharp'
+import { Jimp } from 'jimp'
 import * as vscode from 'vscode'
 import { TIPS, EXTENSION_CONFIG, ANIM_LEVEL, TERMINAL_ANIMATION, BACKGROUND_OPACITY_TEMPLATE } from '../enum/tip'
 
@@ -114,8 +114,7 @@ function createTerminalAnimation() {
  * @throws {Error} - 如果图片处理过程中发生错误，将抛出错误
  */
 async function imageBlur(imgPath: string, opacity: number) {
-    const imageBlur = await sharp(imgPath).blur(opacity).toBuffer()
-    const base64 = `data:image/png;base64,${imageBlur.toString('base64')}`
+    const base64 = await (await Jimp.read(imgPath)).blur(opacity).getBase64('image/png', {})
     return base64
 }
 

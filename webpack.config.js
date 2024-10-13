@@ -22,16 +22,15 @@ const extensionConfig = {
   externals: {
     vscode: 'commonjs vscode', // the vscode-module is created on-the-fly and must be excluded. Add other modules that cannot be webpack'ed, 📖 -> https://webpack.js.org/configuration/externals/
     // modules added here also need to be added in the .vscodeignore file
-    sharp: 'commonjs sharp' // 忽略 `sharp`，告诉 Webpack 它是一个外部依赖
   },
   resolve: {
     // support reading TypeScript and JavaScript files, 📖 -> https://github.com/TypeStrong/ts-loader
-    extensions: ['.ts', '.js', '.node'],
+    extensions: ['.ts', '.js'],
   },
   plugins: [
     new CopyWebpackPlugin({
       patterns: [
-        { from: 'src/css/index.css', to: '' }, // 将 public 目录下的所有文件复制到 dist 目录
+        { from: 'src/css/index.css', to: '' },
       ],
     }),
   ],
