@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.0.4]
+
+### Added 添加
+
+-   支持全局背景图片的设置。 (Added support for setting a global background image.)
+-   支持全局背景图片的透明度的设置。 (Added support for setting the opacity of the global background image.)
+-   支持终端动画的设置。 (Added support for terminal animations.)
+
 ## [v0.0.3]
 
 ### fixed 修复

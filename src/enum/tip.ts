@@ -32,6 +32,18 @@ const EXTENSION_CONFIG = {
         key: 'AnimLevel',
         default: 'low',
     },
+    TerminalAnimation: {
+        key: 'TerminalAnimation',
+        default: 'disable',
+    },
+    BackgroundImage: {
+        key: 'BackgroundImage',
+        default: 'none',
+    },
+    BackgroundImageOpacity: {
+        key: 'BackgroundImageOpacity',
+        default: 60,
+    },
 }
 
 // 动画等级枚举
@@ -56,6 +68,60 @@ const ANIM_LEVEL = {
         }
 		}`,
 }
+
+// 终端动画枚举
+const TERMINAL_ANIMATION = {
+    disable: '',
+    enable: `.monaco-grid-branch-node .monaco-split-view2.vertical {
+    .monaco-scrollable-element {
+        .split-view-container > .split-view-view {
+            transition: top 0.3s ease-out;
+        }
+        // TODO 终端beat功能
+        .split-view-container > .split-view-view {
+            display: block !important;
+
+            .part.panel {
+                display: block !important;
+                visibility: visible !important;
+            }
+        }
+    }
+}`,
+}
+
+// 背景透明度模板
+const BACKGROUND_OPACITY_TEMPLATE = `.monaco-workbench {
+    background-color: transparent !important;
+    .part.activitybar {
+        opacity: 0.8;
+        position: relative;
+        z-index: 5;
+    }
+    .part.sidebar.pane-composite-part {
+        opacity: 0.8;
+        position: relative;
+        z-index: 4;
+    }
+    .monaco-grid-branch-node {
+        .part.editor {
+            .content {
+                position: relative;
+                opacity: 0.8;
+                z-index: 3;
+            }
+        }
+    }
+    .part.titlebar {
+        opacity: 0.8;
+        position: relative;
+        z-index: 7;
+    }
+    .part.panel.pane-composite-part {
+        opacity: 0.8;
+    }
+}
+`
 
 // 主文件原始备份模板
 const WORKBENCH_HTML_TEMPLATE = `<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
@@ -132,4 +198,14 @@ const WORKBENCH_HTML_TEMPLATE = `<!-- Copyright (C) Microsoft Corporation. All r
 </html>
 `
 
-export { TIPS, COMMANDS, ANIM_LEVEL, PRIMARY_FILE, EXTENSION_CONFIG, BACKUP_FILE_SUFFIX, WORKBENCH_HTML_TEMPLATE }
+export {
+    TIPS,
+    COMMANDS,
+    ANIM_LEVEL,
+    PRIMARY_FILE,
+    TERMINAL_ANIMATION,
+    EXTENSION_CONFIG,
+    BACKUP_FILE_SUFFIX,
+    WORKBENCH_HTML_TEMPLATE,
+    BACKGROUND_OPACITY_TEMPLATE,
+}

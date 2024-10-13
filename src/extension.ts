@@ -1,14 +1,14 @@
 import * as vscode from 'vscode'
 import { enabledRestart, resetEasyAnimCodeConfig, showIsBackUpNotification, unInstallSuccess } from './common/index'
 import {
-    getEasyAnimCodeExtensionsCss,
-    getVSCodeWorkbenchFolderPath,
-    getResultHtml,
     writeFile,
+    getResultHtml,
     backupWorkbench,
+    getPrimaryFilePath,
     getBackupWorkbenchFile,
     removeBackUpWorkBenchFile,
-    getPrimaryFilePath,
+    getEasyAnimCodeExtensionsCss,
+    getVSCodeWorkbenchFolderPath,
 } from './file/index'
 import { COMMANDS, PRIMARY_FILE, TIPS, WORKBENCH_HTML_TEMPLATE } from './enum/tip'
 
@@ -26,8 +26,7 @@ export function activate(context: vscode.ExtensionContext) {
             // 2. 获取要注入的文件
             const { workbenchText } = await getVSCodeWorkbenchFolderPath()
             // 3. 组合最终要注入的html文件
-            // vscode中有workbench和workbench-apc-extension两个html文件，可能在新版本的vscode中，只修改前者无效，会被后者html的加载覆盖，所以需要修改两个文件
-            const htmlText = getResultHtml(workbenchText as string, cssFileText as string)
+            const htmlText = await getResultHtml(workbenchText as string, cssFileText as string)
             // 4. 备份文件
             const isWorkbenchBackedUp = await backupWorkbench()
             // 检测是否已经执行过覆盖
@@ -41,6 +40,8 @@ export function activate(context: vscode.ExtensionContext) {
                 showIsBackUpNotification()
             }
         } catch (error) {
+            console.log(error)
+
             vscode.window.showErrorMessage(TIPS.errorText)
         }
     })

@@ -1,8 +1,8 @@
 {
   "name": "easy-anim-code",
   "displayName": "Easy Anim Code",
-  "description": "对vscode的基本操作添加动画",
-  "version": "0.0.3",
+  "description": "Add animations to basic VSCode operations",
+  "version": "0.0.4",
   "icon": "./icon/logo.png",
   "engines": {
     "vscode": "^1.94.0"
@@ -24,7 +24,10 @@
     "animation",
     "Animation",
     "Themes",
-    "window"
+    "window",
+    "Background",
+    "Image",
+    "Terminal"
   ],
   "activationEvents": [],
   "main": "./dist/extension.js",
@@ -45,6 +48,37 @@
           ],
           "default": "low",
           "markdownDescription": "动画添加的数量（low: 正常, high: 多）"
+        },
+        "easy-anim-code.TerminalAnimation": {
+          "type": "string",
+          "enum": [
+            "disable",
+            "enable"
+          ],
+          "default": "disable",
+          "markdownDescription": "终端动画设置（disable：禁用, enable：开启）"
+        },
+        "easy-anim-code.BackgroundImage": {
+          "type": "string",
+          "default": "none",
+          "markdownDescription": "背景图片设置（none：无背景，其他值应为有效的图片 URL）"
+        },
+        "easy-anim-code.BackgroundImageOpacity": {
+          "type": "number",
+          "enum": [
+            100,
+            90,
+            80,
+            70,
+            60,
+            50,
+            40,
+            30,
+            20,
+            10
+          ],
+          "default": 60,
+          "markdownDescription": "背景图片透明度"
         }
       }
     },
@@ -90,6 +124,6 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "easy-anim-code": "file:"
+    "sharp": "^0.33.5"
   }
 }

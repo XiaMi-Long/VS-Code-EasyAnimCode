@@ -209,8 +209,11 @@ To avoid conflicts with users' theme plugins, EasyAnimCode provides several conf
 
 ![setting](./image/setting.png)
 
--   `Easy-anim-code.PrimaryColor`: Set the primary color of the plugin.
--   `Easy-anim-code.AnimLevel`: Set the level of animation effects.
+-   `Easy-anim-code.PrimaryColor`: Set the primary color of the extension.
+-   `Easy-anim-code.AnimLevel`: Adjust the intensity level of animations.
+-   `Easy-anim-code.BackgroundImage`: Set a global background image.
+-   `Easy-anim-code.BackgroundImageOpacity`: Adjust the opacity of the global background image.
+-   `Easy-anim-code.TerminalAnimation`: Enable or disable terminal animations.
 
 > The configuration values must be provided as hex color codes, and transparency is supported. If you modify the configuration, first run `easy-anim-code.disable`, then run `easy-anim-code.enable` and restart VSCode to apply the changes.
 
@@ -218,10 +221,12 @@ To avoid conflicts with users' theme plugins, EasyAnimCode provides several conf
 
 ## Installing Other Versions to Support Lower Versions of VSCode
 
-| Plugin Version | Corresponding VSCode Version | Installation                                                                                                                               | Documentation                                                                                                                                |
-| -------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| v0.0.2         | 1.94                         | Latest                                                                                                                                     | Latest                                                                                                                                       |
-| v0.0.1         | 1.93                         | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/releases/tag/v1.93.0%2B) Drag the visx installation package directly into VSCode | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/tree/branch-v1.93.0%2B) This link contains the documentation for the v0.0.2 branch |
+| Plugin Version | Corresponding VSCode Version | Installation                                                                                                                          | Documentation                                                                      |
+| -------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| v0.0.4         | 1.94                         | Latest                                                                                                                                | Latest                                                                             |
+| v0.0.3         | 1.94                         | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/releases/tag/v0.0.3-vscode_1.94) - Simply drag the visx package into VSCode | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/tree/v0.0.3-vscode_1.94) |
+| v0.0.2         | 1.94                         | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/releases/tag/v1.94.0) - Simply drag the visx package into VSCode            | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/tree/v1.94.0)            |
+| v0.0.1         | 1.93                         | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/releases/tag/v1.93.0%2B) - Simply drag the visx package into VSCode         | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/tree/v1.93.0%2B)         |
 
 ## Acknowledgments
 

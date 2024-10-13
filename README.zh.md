@@ -8,6 +8,7 @@
 
 -   为 VSCode 的常见操作添加动画效果。
 -   修改 VSCode 的基础样式，带来更美观的视觉体验。
+-   为 VSCode 添加透明背景
 -   目前仅确定支持 Windows 平台（其他平台尚未测试）。
 -   **本插件 `v0.0.2` 支持 VSCode 版本 `1.94`**。
 
@@ -207,6 +208,9 @@ VSCode 更新之后，需要重新执行 `easy-anim-code.enable` 命令启用动
 
 -   `Easy-anim-code.PrimaryColor`: 设置插件的主色调。
 -   `Easy-anim-code.AnimLevel`: 设置动画效果的级别。
+-   `Easy-anim-code.BackgroundImage`: 设置全局背景图片。
+-   `Easy-anim-code.BackgroundImageOpacity`: 调整全局背景图片的透明度。
+-   `Easy-anim-code.TerminalAnimation`: 控制终端动画的启用与禁用。
 
 > 配置值需使用 16 进制颜色代码，支持透明度设置。若修改配置，需先执行 easy-anim-code.disable，再运行 easy-anim-code.enable 并重启 VSCode 以应用更改。
 
@@ -214,10 +218,12 @@ VSCode 更新之后，需要重新执行 `easy-anim-code.enable` 命令启用动
 
 ## 安装其他版本，以支持更低版本的 VSCode
 
-| 插件版本 | 对应 VSCode 版本 | 安装                                                                                                               | 文档                                                                                                          |
-| -------- | ---------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
-| v0.0.2   | 1.94             | 最新                                                                                                               | 最新                                                                                                          |
-| v0.0.1   | 1.93             | [链接](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/releases/tag/v1.93.0%2B) visx 安装包直接拖入 VSCode 即可 | [链接](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/tree/branch-v1.93.0%2B)此链接为 v0.0.2 分支下的文档 |
+| 插件版本 | 对应 VSCode 版本 | 安装                                                                                                                       | 文档                                                                               |
+| -------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| v0.0.4   | 1.94             | 最新                                                                                                                       | 最新                                                                               |
+| v0.0.3   | 1.94             | [链接](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/releases/tag/v0.0.3-vscode_1.94) visx 安装包直接拖入 VSCode 即可 | [链接](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/tree/v0.0.3-vscode_1.94) |
+| v0.0.2   | 1.94             | [链接](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/releases/tag/v1.94.0) visx 安装包直接拖入 VSCode 即可            | [链接](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/tree/v1.94.0)            |
+| v0.0.1   | 1.93             | [链接](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/releases/tag/v1.93.0%2B) visx 安装包直接拖入 VSCode 即可         | [链接](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/tree/v1.93.0%2B)         |
 
 ## 致谢
 

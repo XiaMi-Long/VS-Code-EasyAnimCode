@@ -2,7 +2,13 @@ import * as path from 'path'
 import * as vscode from 'vscode'
 import * as fs from 'fs/promises'
 import { PRIMARY_FILE } from '../enum/tip'
-import { createHighAnimLevel, createRootValStyleTemplate } from '../common'
+import {
+    createBackgroundImage,
+    createBackgroundOpacityStyle,
+    createHighAnimLevel,
+    createRootValStyleTemplate,
+    createTerminalAnimation,
+} from '../common'
 
 /**
  * 异步获取 Easy Anim Code 扩展的 CSS 文件内容
@@ -64,10 +70,21 @@ async function getVSCodeWorkbenchFolderPath() {
  * @param {string} cssText - 要嵌入的 CSS 文本
  * @returns {string} - 新的 HTML 文本，其中包含了嵌入的 CSS 样式
  */
-function getResultHtml(workbenchText: string, cssText: string) {
+async function getResultHtml(workbenchText: string, cssText: string) {
     const rootVal = createRootValStyleTemplate()
     const isHighLevel = createHighAnimLevel()
-    return workbenchText?.replace(/(<\/head>)/, `\n<style>${rootVal} ${cssText} ${isHighLevel}</style>\n</head>`)
+    const terminalAnimation = createTerminalAnimation()
+    const backgroundImage = await createBackgroundImage()
+    let backgroundOpacityStyle = ''
+    if (backgroundImage.length > 0) {
+        backgroundOpacityStyle = createBackgroundOpacityStyle()
+    }
+
+    return workbenchText?.replace(
+        /(<\/head>)/,
+        `\n<style>body{background-image: url(${backgroundImage});}
+        ${rootVal} ${cssText} ${isHighLevel} ${terminalAnimation}${backgroundOpacityStyle}</style>\n</head>`
+    )
 }
 
 /**

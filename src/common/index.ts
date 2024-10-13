@@ -1,5 +1,6 @@
+import sharp from 'sharp'
 import * as vscode from 'vscode'
-import { TIPS, EXTENSION_CONFIG, ANIM_LEVEL } from '../enum/tip'
+import { TIPS, EXTENSION_CONFIG, ANIM_LEVEL, TERMINAL_ANIMATION, BACKGROUND_OPACITY_TEMPLATE } from '../enum/tip'
 
 /**
  * 重新加载当前窗口
@@ -56,9 +57,15 @@ function getEasyAnimCodeConfig() {
     const config = vscode.workspace.getConfiguration('easy-anim-code')
     const primaryColor = config.get(EXTENSION_CONFIG.PrimaryColor.key)
     const animLevel = config.get(EXTENSION_CONFIG.AnimLevel.key)
+    const backgroundImage = config.get(EXTENSION_CONFIG.BackgroundImage.key)
+    const backgroundOpacity = config.get(EXTENSION_CONFIG.BackgroundImageOpacity.key)
+    const terminalAnimation = config.get(EXTENSION_CONFIG.TerminalAnimation.key)
     return {
-        primaryColor,
         animLevel,
+        primaryColor,
+        backgroundImage,
+        backgroundOpacity,
+        terminalAnimation,
     }
 }
 
@@ -88,6 +95,58 @@ function createHighAnimLevel() {
 }
 
 /**
+ * 创建终端动画效果的配置字符串
+ *
+ * @returns {string} 终端动画效果的配置字符串
+ */
+function createTerminalAnimation() {
+    const { terminalAnimation } = getEasyAnimCodeConfig()
+    const terminalAnimationLevel = TERMINAL_ANIMATION[terminalAnimation as keyof typeof TERMINAL_ANIMATION]
+    return `${terminalAnimationLevel}`
+}
+
+/**
+ * 对指定路径的图片进行模糊处理，并返回处理后的图片的 base64 编码字符串
+ *
+ * @param {string} imgPath - 图片的路径
+ * @param {number} opacity - 模糊的不透明度，取值范围为 0 到 100
+ * @returns {Promise<string>} - 处理后的图片的 base64 编码字符串
+ * @throws {Error} - 如果图片处理过程中发生错误，将抛出错误
+ */
+async function imageBlur(imgPath: string, opacity: number) {
+    const imageBlur = await sharp(imgPath).blur(opacity).toBuffer()
+    const base64 = `data:image/png;base64,${imageBlur.toString('base64')}`
+    return base64
+}
+
+/**
+ * 创建背景图片的函数
+ * 如果配置中的背景图片为 'none'，则返回空字符串
+ * 否则，使用 imageBlur 函数对背景图片进行模糊处理，并返回处理后的图片的 base64 编码字符串
+ *
+ * @param {string} backgroundImage - 背景图片的路径
+ * @param {number} backgroundOpacity - 背景图片的模糊不透明度
+ * @returns {Promise<string>} - 处理后的背景图片的 base64 编码字符串
+ */
+async function createBackgroundImage() {
+    const { backgroundImage, backgroundOpacity } = getEasyAnimCodeConfig()
+    if (backgroundImage === 'none') {
+        return ''
+    }
+    const base64 = await imageBlur(backgroundImage as string, backgroundOpacity as number)
+    return `${base64}`
+}
+
+/**
+ * 创建背景不透明度样式的函数
+ *
+ * @returns {string} - 背景不透明度样式模板
+ */
+function createBackgroundOpacityStyle() {
+    return BACKGROUND_OPACITY_TEMPLATE
+}
+
+/**
  * 重置 Easy Anim Code 扩展的配置为默认值。
  *
  * 此函数用于将 Easy Anim Code 扩展的配置重置为其默认值。
@@ -97,6 +156,9 @@ function resetEasyAnimCodeConfig() {
     const config = vscode.workspace.getConfiguration('easy-anim-code')
     config.update(EXTENSION_CONFIG.PrimaryColor.key, EXTENSION_CONFIG.PrimaryColor.default, true)
     config.update(EXTENSION_CONFIG.AnimLevel.key, EXTENSION_CONFIG.AnimLevel.default, true)
+    config.update(EXTENSION_CONFIG.TerminalAnimation.key, EXTENSION_CONFIG.TerminalAnimation.default, true)
+    config.update(EXTENSION_CONFIG.BackgroundImage.key, EXTENSION_CONFIG.BackgroundImage.default, true)
+    config.update(EXTENSION_CONFIG.BackgroundImageOpacity.key, EXTENSION_CONFIG.BackgroundImageOpacity.default, true)
 }
 
 export {
@@ -104,7 +166,10 @@ export {
     enabledRestart,
     unInstallSuccess,
     createHighAnimLevel,
+    createBackgroundImage,
+    createTerminalAnimation,
     resetEasyAnimCodeConfig,
     showIsBackUpNotification,
     createRootValStyleTemplate,
+    createBackgroundOpacityStyle,
 }
