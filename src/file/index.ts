@@ -82,7 +82,8 @@ async function getResultHtml(workbenchText: string, cssText: string) {
 
     return workbenchText?.replace(
         /(<\/head>)/,
-        `\n<style>body{background-image: url(${backgroundImage});}
+        `\n<style>body{background-image: url(${backgroundImage});background-repeat: no-repeat;background-size: cover;}
+
         ${rootVal} ${cssText} ${isHighLevel} ${terminalAnimation}${backgroundOpacityStyle}</style>\n</head>`
     )
 }

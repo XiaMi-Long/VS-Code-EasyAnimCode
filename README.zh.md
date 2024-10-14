@@ -210,7 +210,11 @@ VSCode 更新之后，需要重新执行 `easy-anim-code.enable` 命令启用动
 -   `Easy-anim-code.AnimLevel`: 设置动画效果的级别。
 -   `Easy-anim-code.BackgroundImage`: 设置全局背景图片。
 -   `Easy-anim-code.BackgroundImageOpacity`: 调整全局背景图片的透明度。
+
     > 路径为绝对路径，window 平台路径需要转义，例："C:\\luoqixi\\0614_11.png" 图片路径不支持有中文
+
+    > 图片只支持 png
+
 -   `Easy-anim-code.TerminalAnimation`: 控制终端动画的启用与禁用。
 
 > 配置值需使用 16 进制颜色代码，支持透明度设置。若修改配置，需先执行 easy-anim-code.disable，再运行 easy-anim-code.enable 并重启 VSCode 以应用更改。

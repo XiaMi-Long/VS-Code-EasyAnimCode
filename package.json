@@ -2,7 +2,7 @@
     "name": "easy-anim-code",
     "displayName": "Easy Anim Code",
     "description": "Add animations to basic VSCode operations",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "icon": "./icon/logo.png",
     "engines": {
         "vscode": "^1.94.0"

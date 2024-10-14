@@ -1,5 +1,11 @@
 # Changelog
 
+## [v.0.0.5]
+
+### Added 添加
+
+-   背景图片大小默认 cover。 (Background image size is now set to cover by default)
+
 ## [v0.0.4]
 
 ### Added 添加

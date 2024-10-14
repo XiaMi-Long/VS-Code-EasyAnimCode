@@ -212,7 +212,11 @@ To avoid conflicts with users' theme plugins, EasyAnimCode provides several conf
 -   `Easy-anim-code.PrimaryColor`: Set the primary color of the extension.
 -   `Easy-anim-code.AnimLevel`: Adjust the intensity level of animations.
 -   `Easy-anim-code.BackgroundImage`: Set a global background image.
+
     > The path is an absolute path, and for the Windows platform, the path needs to be escaped, e.g., "C:\\luoqixi\\0614_11.png". Image paths do not support Chinese characters.
+
+    > Images only support PNG.
+
 -   `Easy-anim-code.BackgroundImageOpacity`: Adjust the opacity of the global background image.
 -   `Easy-anim-code.TerminalAnimation`: Enable or disable terminal animations.
 
