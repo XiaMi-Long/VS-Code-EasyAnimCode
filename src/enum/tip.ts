@@ -2,8 +2,8 @@
 const TIPS = {
     enableText: '来自easy-anim-code的提示',
     restartText: 'restart',
-    isBackUpText: '插件已执行过，本次中止执行',
-    errorText: '执行出现异常',
+    isBackUpText: '插件已执行过，本次中止执行（"The plugin has already been executed, execution is terminated this time."）',
+    errorText: '执行出现异常（"The execution encountered an exception."）',
 }
 
 // 命令枚举
