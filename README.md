@@ -306,3 +306,17 @@ The creation of this plugin would not have been possible without the contributio
 ![背景](./image/background2.webp)
 
 ![背景](./image/background3.webp)
+
+### 常见问题解决
+
+#### The plugin has already been executed, execution is terminated this time
+
+Simply execute the "disabled" command once, then run the "enable" command again.
+
+#### 更新 "Easy Anim Code"扩展时出错。
+
+This issue is usually not caused by the plugin itself. Please try uninstalling and then reinstalling the plugin.
+
+#### The execution encountered an exception.
+
+This indicates an internal exception within the plugin. Please carefully check if your custom configuration parameters are correct.
