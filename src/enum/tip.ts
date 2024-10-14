@@ -120,6 +120,9 @@ const BACKGROUND_OPACITY_TEMPLATE = `.monaco-workbench {
     .part.panel.pane-composite-part {
         opacity: 0.8;
     }
+    .part.statusbar {
+        opacity: 0.8;
+    }
 }
 `
 
