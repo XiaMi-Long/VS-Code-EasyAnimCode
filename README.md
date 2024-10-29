@@ -187,7 +187,6 @@ The creation of this plugin would not have been possible without the contributio
 ![home2](./image/home2.png)
 
 > Theme: [Rainglow-Absent Contrast](https://marketplace.visualstudio.com/items?itemName=daylerees.rainglow)
-
 ![home3](./image/home3.png)
 
 > Theme: [XCode-default](https://marketplace.visualstudio.com/items?itemName=smockle.xcode-default-theme)
