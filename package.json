@@ -2,7 +2,7 @@
     "name": "easy-anim-code",
     "displayName": "Easy Anim Code",
     "description": "Add animations to basic VSCode operations",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "icon": "./icon/logo.png",
     "engines": {
         "vscode": "^1.94.0"
@@ -63,7 +63,7 @@
                     "default": "none",
                     "markdownDescription": "背景图片设置（none：无背景，其他值应为有效的图片 URL）"
                 },
-                "easy-anim-code.BackgroundImageOpacity": {
+                "easy-anim-code.BackgroundImageBlur": {
                     "type": "number",
                     "enum": [
                         100,
@@ -77,8 +77,21 @@
                         20,
                         10
                     ],
-                    "default": 60,
-                    "markdownDescription": "背景图片透明度"
+                    "default": 50,
+                    "markdownDescription": "背景图片模糊度"
+                },
+                "easy-anim-code.VSCodeBackgroundOpacity": {
+                    "type": "number",
+                    "enum": [
+                        0.9,
+                        0.8,
+                        0.7,
+                        0.6,
+                        0.5,
+                        0.4
+                    ],
+                    "default": 0.8,
+                    "markdownDescription": "VSCode 背景透明度"
                 }
             }
         },

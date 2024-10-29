@@ -1,6 +1,6 @@
 import { Jimp } from 'jimp'
 import * as vscode from 'vscode'
-import { TIPS, EXTENSION_CONFIG, ANIM_LEVEL, TERMINAL_ANIMATION, BACKGROUND_OPACITY_TEMPLATE } from '../enum/tip'
+import { TIPS, EXTENSION_CONFIG, ANIM_LEVEL, TERMINAL_ANIMATION } from '../enum/tip'
 
 /**
  * 重新加载当前窗口
@@ -58,14 +58,16 @@ function getEasyAnimCodeConfig() {
     const primaryColor = config.get(EXTENSION_CONFIG.PrimaryColor.key)
     const animLevel = config.get(EXTENSION_CONFIG.AnimLevel.key)
     const backgroundImage = config.get(EXTENSION_CONFIG.BackgroundImage.key)
-    const backgroundOpacity = config.get(EXTENSION_CONFIG.BackgroundImageOpacity.key)
+    const backgroundOpacity = config.get(EXTENSION_CONFIG.BackgroundImageBlur.key)
     const terminalAnimation = config.get(EXTENSION_CONFIG.TerminalAnimation.key)
+    const vscodeBackgroundOpacity = config.get(EXTENSION_CONFIG.VSCodeBackgroundOpacity.key)
     return {
         animLevel,
         primaryColor,
         backgroundImage,
         backgroundOpacity,
         terminalAnimation,
+        vscodeBackgroundOpacity,
     }
 }
 
@@ -137,12 +139,13 @@ async function createBackgroundImage() {
 }
 
 /**
- * 创建背景不透明度样式的函数
+ * 创建用于设置 VSCode 背景透明度的 CSS 规则
  *
- * @returns {string} - 背景不透明度样式模板
+ * @returns {string} 包含设置背景透明度的 CSS 规则的字符串
  */
-function createBackgroundOpacityStyle() {
-    return BACKGROUND_OPACITY_TEMPLATE
+function createVSCodeBackgroundOpacity() {
+    const { vscodeBackgroundOpacity } = getEasyAnimCodeConfig()
+    return `body{ opacity: ${vscodeBackgroundOpacity}};`
 }
 
 /**
@@ -157,7 +160,8 @@ function resetEasyAnimCodeConfig() {
     config.update(EXTENSION_CONFIG.AnimLevel.key, EXTENSION_CONFIG.AnimLevel.default, true)
     config.update(EXTENSION_CONFIG.TerminalAnimation.key, EXTENSION_CONFIG.TerminalAnimation.default, true)
     config.update(EXTENSION_CONFIG.BackgroundImage.key, EXTENSION_CONFIG.BackgroundImage.default, true)
-    config.update(EXTENSION_CONFIG.BackgroundImageOpacity.key, EXTENSION_CONFIG.BackgroundImageOpacity.default, true)
+    config.update(EXTENSION_CONFIG.BackgroundImageBlur.key, EXTENSION_CONFIG.BackgroundImageBlur.default, true)
+    config.update(EXTENSION_CONFIG.VSCodeBackgroundOpacity.key, EXTENSION_CONFIG.VSCodeBackgroundOpacity.default, true)
 }
 
 export {
@@ -170,5 +174,5 @@ export {
     resetEasyAnimCodeConfig,
     showIsBackUpNotification,
     createRootValStyleTemplate,
-    createBackgroundOpacityStyle,
+    createVSCodeBackgroundOpacity,
 }

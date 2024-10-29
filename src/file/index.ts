@@ -4,7 +4,7 @@ import * as fs from 'fs/promises'
 import { PRIMARY_FILE } from '../enum/tip'
 import {
     createBackgroundImage,
-    createBackgroundOpacityStyle,
+    createVSCodeBackgroundOpacity,
     createHighAnimLevel,
     createRootValStyleTemplate,
     createTerminalAnimation,
@@ -77,13 +77,12 @@ async function getResultHtml(workbenchText: string, cssText: string) {
     const backgroundImage = await createBackgroundImage()
     let backgroundOpacityStyle = ''
     if (backgroundImage.length > 0) {
-        backgroundOpacityStyle = createBackgroundOpacityStyle()
+        backgroundOpacityStyle = createVSCodeBackgroundOpacity()
     }
 
     return workbenchText?.replace(
         /(<\/head>)/,
         `\n<style>body{background-image: url(${backgroundImage});background-repeat: no-repeat;background-size: cover;}
-
         ${rootVal} ${cssText} ${isHighLevel} ${terminalAnimation}${backgroundOpacityStyle}</style>\n</head>`
     )
 }

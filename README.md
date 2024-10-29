@@ -12,6 +12,8 @@ This English documentation was translated by ChatGPT.
 -   Currently confirmed to support Windows platform only (other platforms not yet tested).
 -   **This plugin `v0.0.2` supports VSCode version `1.94`**.
 
+> This plugin has some conflicts with other animation plugins (e.g., VSCode Animations). It is recommended to uninstall or disable other plugins before using this one.
+
 ## Installation
 
 1. Run VSCode as an administrator.
@@ -54,13 +56,6 @@ If the extension causes issues and damages VSCode's configuration files, you can
 1. Go to the VSCode installation directory.
 2. Locate the `resources\app\out\vs\code\electron-sandbox\workbench` folder.
 3. Find the files `workbench.esm.html` .
-4. Replace the content of these files with the templates provided below. After saving the changes, restart VSCode.
-
-#### ~~VSCode 1.93 Version Repair Process(The latest version is no longer supported)~~
-
-1. Go to the VSCode installation directory.
-2. Locate the `resources\app\out\vs\code\electron-sandbox\workbench` folder.
-3. Find the files `workbench.html` and `workbench-apc-extension.html`.
 4. Replace the content of these files with the templates provided below. After saving the changes, restart VSCode.
 
 #### `workbench.esm.html` Template
@@ -141,97 +136,37 @@ If the extension causes issues and damages VSCode's configuration files, you can
 </html>
 ```
 
-##### ~~`workbench.html` Template(The latest version is no longer supported.)~~
-
-```html
-<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <meta
-            http-equiv="Content-Security-Policy"
-            content="
-                default-src 'none';
-                img-src 'self' data: blob: vscode-remote-resource: vscode-managed-remote-resource: https:;
-                media-src 'self';
-                frame-src 'self' vscode-webview:;
-                script-src 'self' 'unsafe-eval' blob:;
-                style-src 'self' 'unsafe-inline';
-                connect-src 'self' https: ws:;
-                font-src 'self' vscode-remote-resource: vscode-managed-remote-resource: https://*.vscode-unpkg.net;
-                require-trusted-types-for 'script';
-                trusted-types
-                    amdLoader
-                    cellRendererEditorText
-                    defaultWorkerFactory
-                    diffEditorWidget
-                    diffReview
-                    domLineBreaksComputer
-                    dompurify
-                    editorGhostText
-                    editorViewLayer
-                    notebookRenderer
-                    stickyScrollViewLayer
-                    tokenizeToString;
-            " />
-    </head>
-
-    <body aria-label=""></body>
-    <!-- Startup (do not modify order of script tags !) -->
-    <script src="workbench.js"></script>
-</html>
-```
-
-##### ~~`workbench-apc-extension.html` Template(The latest version is no longer supported.)~~
-
-```html
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-    </head>
-
-    <body aria-label=""></body>
-    <!-- Startup (do not modify order of script tags!) -->
-    <script src="../../../patch/browser.main.js"></script>
-    <script src="workbench.js"></script>
-</html>
-```
-
 **If the above methods don't work, please try reinstalling VSCode.**
 
 ## Configuration Options
 
 To avoid conflicts with users' theme plugins, EasyAnimCode provides several configuration options that allow users to customize the plugin settings as needed.
 
-> Since different users use different theme plugins, the default plugin may cause color and style conflicts with the user's theme.
+-   `Easy-anim-code.Primary Color`: Sets the primary color of the plugin.
+-   `Easy-anim-code.Anim Level`: Sets the level of animation effects.
+-   `Easy-anim-code.Background Image`: Sets the global background image.
+-   `Easy-anim-code.Background Image Blur`: Adjusts the Gaussian blur level of the background image.
+-   `Easy-anim-code.Terminal Animation`: Enables or disables terminal animations.
+-   `Easy-anim-code.VSCode Background Opacity`: Adjusts the opacity of the global background.
 
-![setting](./image/setting.png)
+> The path should be an absolute path, and Windows platform paths require escaping, e.g., `"C:\\luoqixi\\0614_11.png"`. Image paths with Chinese characters are not supported.
 
--   `Easy-anim-code.PrimaryColor`: Set the primary color of the extension.
--   `Easy-anim-code.AnimLevel`: Adjust the intensity level of animations.
--   `Easy-anim-code.BackgroundImage`: Set a global background image.
+> Only PNG images are supported. Please choose an image that fits your screen resolution. If the image is too small, the visual experience may be unsatisfactory.
 
-    > The path is an absolute path, and for the Windows platform, the path needs to be escaped, e.g., "C:\\luoqixi\\0614_11.png". Image paths do not support Chinese characters.
-
-    > Images only support PNG.
-
--   `Easy-anim-code.BackgroundImageOpacity`: Adjust the opacity of the global background image.
--   `Easy-anim-code.TerminalAnimation`: Enable or disable terminal animations.
-
-> The configuration values must be provided as hex color codes, and transparency is supported. If you modify the configuration, first run `easy-anim-code.disable`, then run `easy-anim-code.enable` and restart VSCode to apply the changes.
+> Configuration values must use hexadecimal color codes, and transparency is supported. If you modify the configuration, you need to run `easy-anim-code.disable` first, then run `easy-anim-code.enable` and restart VSCode to apply the changes.
 
 **Please note: Every time you run the `easy-anim-code.disable` command, the configuration will be reset to the default value.**
 
 ## Installing Other Versions to Support Lower Versions of VSCode
 
-| Plugin Version | Corresponding VSCode Version | Installation                                                                                                                          | Documentation                                                                      |
-| -------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| v0.0.4         | 1.94                         | Latest                                                                                                                                | Latest                                                                             |
-| v0.0.3         | 1.94                         | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/releases/tag/v0.0.3-vscode_1.94) - Simply drag the visx package into VSCode | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/tree/v0.0.3-vscode_1.94) |
-| v0.0.2         | 1.94                         | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/releases/tag/v1.94.0) - Simply drag the visx package into VSCode            | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/tree/v1.94.0)            |
-| v0.0.1         | 1.93                         | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/releases/tag/v1.93.0%2B) - Simply drag the visx package into VSCode         | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/tree/v1.93.0%2B)         |
+| Plugin Version | Corresponding VSCode Version | Installation                                                                                                                            | Documentation                                                                        |
+| -------------- | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| v0.0.6         | 1.94+                        | Latest                                                                                                                                  | Latest                                                                               |
+| v0.0.5         | 1.94+                        | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/releases/tag/v0.0.5) - Simply drag the visx package into VSCode               | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/tree/v0.0.5)               |
+| v0.0.4         | 1.94+                        | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/releases/tag/v0.04-vscode_1.94%2B) - Simply drag the visx package into VSCode | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/tree/v0.04-vscode_1.94%2B) |
+| v0.0.3         | 1.94+                        | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/releases/tag/v0.0.3-vscode_1.94) - Simply drag the visx package into VSCode   | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/tree/v0.0.3-vscode_1.94)   |
+| v0.0.2         | 1.94+                        | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/releases/tag/v1.94.0) - Simply drag the visx package into VSCode              | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/tree/v1.94.0)              |
+| v0.0.1         | 1.93                         | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/releases/tag/v1.93.0%2B) - Simply drag the visx package into VSCode           | [Link](https://github.com/XiaMi-Long/VS-Code-EasyAnimCode/tree/v1.93.0%2B)           |
 
 ## Acknowledgments
 

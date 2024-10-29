@@ -40,9 +40,13 @@ const EXTENSION_CONFIG = {
         key: 'BackgroundImage',
         default: 'none',
     },
-    BackgroundImageOpacity: {
-        key: 'BackgroundImageOpacity',
-        default: 60,
+    BackgroundImageBlur: {
+        key: 'BackgroundImageBlur',
+        default: 50,
+    },
+    VSCodeBackgroundOpacity: {
+        key: 'VSCodeBackgroundOpacity',
+        default: 0.8,
     },
 }
 
@@ -89,42 +93,6 @@ const TERMINAL_ANIMATION = {
     }
 }`,
 }
-
-// 背景透明度模板
-const BACKGROUND_OPACITY_TEMPLATE = `.monaco-workbench {
-    background-color: transparent !important;
-    .part.activitybar {
-        opacity: 0.8;
-        position: relative;
-        z-index: 5;
-    }
-    .part.sidebar.pane-composite-part {
-        opacity: 0.8;
-        position: relative;
-        z-index: 4;
-    }
-    .monaco-grid-branch-node {
-        .part.editor {
-            .content {
-                position: relative;
-                opacity: 0.8;
-                z-index: 3;
-            }
-        }
-    }
-    .part.titlebar {
-        opacity: 0.8;
-        position: relative;
-        z-index: 7;
-    }
-    .part.panel.pane-composite-part {
-        opacity: 0.8;
-    }
-    .part.statusbar {
-        opacity: 0.8;
-    }
-}
-`
 
 // 主文件原始备份模板
 const WORKBENCH_HTML_TEMPLATE = `<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
@@ -201,14 +169,4 @@ const WORKBENCH_HTML_TEMPLATE = `<!-- Copyright (C) Microsoft Corporation. All r
 </html>
 `
 
-export {
-    TIPS,
-    COMMANDS,
-    ANIM_LEVEL,
-    PRIMARY_FILE,
-    TERMINAL_ANIMATION,
-    EXTENSION_CONFIG,
-    BACKUP_FILE_SUFFIX,
-    WORKBENCH_HTML_TEMPLATE,
-    BACKGROUND_OPACITY_TEMPLATE,
-}
+export { TIPS, COMMANDS, ANIM_LEVEL, PRIMARY_FILE, TERMINAL_ANIMATION, EXTENSION_CONFIG, BACKUP_FILE_SUFFIX, WORKBENCH_HTML_TEMPLATE }

@@ -1,5 +1,16 @@
 # Changelog
 
+## [v0.0.6]
+
+### Added 添加
+
+-   支持全局背景图片的设置。 (Added support for setting a global background image.)
+-   优化整体响应性。 (Improved overall responsiveness.)
+
+### fix
+
+-   修复全局背景之后某些卡片内容无法被点击的问题。 (Fixed the issue where some card content could not be clicked after setting a global background image.)
+
 ## [v.0.0.5]
 
 ### Added 添加
