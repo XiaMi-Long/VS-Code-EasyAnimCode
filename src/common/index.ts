@@ -1,6 +1,6 @@
 import { Jimp } from 'jimp'
 import * as vscode from 'vscode'
-import { TIPS, EXTENSION_CONFIG, ANIM_LEVEL, TERMINAL_ANIMATION } from '../enum/tip'
+import { TIPS, EXTENSION_CONFIG } from '../enum/tip'
 
 /**
  * 重新加载当前窗口
@@ -56,17 +56,17 @@ function unInstallSuccess() {
 function getEasyAnimCodeConfig() {
     const config = vscode.workspace.getConfiguration('easy-anim-code')
     const primaryColor = config.get(EXTENSION_CONFIG.PrimaryColor.key)
-    const animLevel = config.get(EXTENSION_CONFIG.AnimLevel.key)
     const backgroundImage = config.get(EXTENSION_CONFIG.BackgroundImage.key)
     const backgroundOpacity = config.get(EXTENSION_CONFIG.BackgroundImageBlur.key)
-    const terminalAnimation = config.get(EXTENSION_CONFIG.TerminalAnimation.key)
+    const cursorWidth = config.get(EXTENSION_CONFIG.CursorWidth.key) as number | undefined
+    const cursorBackgroundColor = config.get(EXTENSION_CONFIG.CursorBackgroundColor.key) as string | undefined
     const vscodeBackgroundOpacity = config.get(EXTENSION_CONFIG.VSCodeBackgroundOpacity.key)
     return {
-        animLevel,
         primaryColor,
         backgroundImage,
+        cursorWidth,
         backgroundOpacity,
-        terminalAnimation,
+        cursorBackgroundColor,
         vscodeBackgroundOpacity,
     }
 }
@@ -83,28 +83,6 @@ function createRootValStyleTemplate() {
             --vscode-style-easy-anim-red-color: ${primaryColor};
         }
     `
-}
-
-/**
- * 根据配置获取高级动画级别。
- *
- * @returns 一个字符串，表示高级动画级别。
- */
-function createHighAnimLevel() {
-    const { animLevel } = getEasyAnimCodeConfig()
-    const highLevel = ANIM_LEVEL[animLevel as keyof typeof ANIM_LEVEL]
-    return `${highLevel}`
-}
-
-/**
- * 创建终端动画效果的配置字符串
- *
- * @returns {string} 终端动画效果的配置字符串
- */
-function createTerminalAnimation() {
-    const { terminalAnimation } = getEasyAnimCodeConfig()
-    const terminalAnimationLevel = TERMINAL_ANIMATION[terminalAnimation as keyof typeof TERMINAL_ANIMATION]
-    return `${terminalAnimationLevel}`
 }
 
 /**
@@ -149,18 +127,74 @@ function createVSCodeBackgroundOpacity() {
 }
 
 /**
+ * 创建一个表示光标宽度的对象
+ * @param value - 光标宽度的值
+ * @returns 一个包含 value 属性的对象，表示光标宽度
+ */
+function createCursorWidth() {
+    const { cursorWidth } = getEasyAnimCodeConfig()
+    if (Number(cursorWidth) < 1) return ''
+    return `.monaco-editor .cursors-layer.cursor-smooth-caret-animation > .cursor {
+            width: ${cursorWidth}px !important;
+    }`
+}
+
+/**
+ * 创建一个表示光标背景颜色的对象
+ * @param value - 光标背景颜色的值
+ * @returns 一个包含 value 属性的对象，表示光标背景颜色
+ */
+function createCursorBackgroundColor() {
+    const { cursorBackgroundColor } = getEasyAnimCodeConfig()
+    const list = []
+
+    if (cursorBackgroundColor && cursorBackgroundColor !== 'none') {
+        const colors = cursorBackgroundColor.split(',')
+        for (let i = 0; i < 5; i++) {
+            list.push(colors[colors.length - 1])
+        }
+        colors.forEach((item, index) => {
+            list[index] = item
+        })
+
+        return `.monaco-editor .cursors-layer.cursor-smooth-caret-animation > .cursor {
+            animation: changeBackgroundColor ${2.5 * colors.length}s linear infinite alternate both;
+        }
+        @keyframes changeBackgroundColor {
+            0% {
+                background-color: ${list[0]};
+            }
+            25% {
+                background-color: ${list[1]};
+            }
+            50% {
+                background-color: ${list[2]};
+            }
+            75% {
+                background-color: ${list[3]};
+            }
+            100% {
+                background-color: ${list[4]};
+            }
+        }`
+    } else {
+        return ''
+    }
+}
+
+/**
  * 重置 Easy Anim Code 扩展的配置为默认值。
  *
  * 此函数用于将 Easy Anim Code 扩展的配置重置为其默认值。
- * 它会更新 primaryColor 和 animLevel 配置项为其默认值。
+ * 它会更新所有配置项为其默认值。
  */
 function resetEasyAnimCodeConfig() {
     const config = vscode.workspace.getConfiguration('easy-anim-code')
+    config.update(EXTENSION_CONFIG.CursorWidth.key, EXTENSION_CONFIG.CursorWidth.default, true)
     config.update(EXTENSION_CONFIG.PrimaryColor.key, EXTENSION_CONFIG.PrimaryColor.default, true)
-    config.update(EXTENSION_CONFIG.AnimLevel.key, EXTENSION_CONFIG.AnimLevel.default, true)
-    config.update(EXTENSION_CONFIG.TerminalAnimation.key, EXTENSION_CONFIG.TerminalAnimation.default, true)
     config.update(EXTENSION_CONFIG.BackgroundImage.key, EXTENSION_CONFIG.BackgroundImage.default, true)
     config.update(EXTENSION_CONFIG.BackgroundImageBlur.key, EXTENSION_CONFIG.BackgroundImageBlur.default, true)
+    config.update(EXTENSION_CONFIG.CursorBackgroundColor.key, EXTENSION_CONFIG.CursorBackgroundColor.default, true)
     config.update(EXTENSION_CONFIG.VSCodeBackgroundOpacity.key, EXTENSION_CONFIG.VSCodeBackgroundOpacity.default, true)
 }
 
@@ -168,11 +202,11 @@ export {
     reloadWindow,
     enabledRestart,
     unInstallSuccess,
-    createHighAnimLevel,
+    createCursorWidth,
     createBackgroundImage,
-    createTerminalAnimation,
     resetEasyAnimCodeConfig,
     showIsBackUpNotification,
     createRootValStyleTemplate,
+    createCursorBackgroundColor,
     createVSCodeBackgroundOpacity,
 }

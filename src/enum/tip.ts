@@ -1,7 +1,7 @@
 // 消息弹窗的文字枚举
 const TIPS = {
     enableText: '来自easy-anim-code的提示',
-    restartText: 'restart',
+    restartText: '重启VSCode（Restart VSCode.）',
     isBackUpText: '插件已执行过，本次中止执行（The plugin has already been executed, execution is terminated this time.）',
     errorText: '执行出现异常（The execution encountered an exception.）',
 }
@@ -28,14 +28,6 @@ const EXTENSION_CONFIG = {
         key: 'PrimaryColor',
         default: '#2aaaff',
     },
-    AnimLevel: {
-        key: 'AnimLevel',
-        default: 'low',
-    },
-    TerminalAnimation: {
-        key: 'TerminalAnimation',
-        default: 'disable',
-    },
     BackgroundImage: {
         key: 'BackgroundImage',
         default: 'none',
@@ -48,50 +40,14 @@ const EXTENSION_CONFIG = {
         key: 'VSCodeBackgroundOpacity',
         default: 0.8,
     },
-}
-
-// 动画等级枚举
-const ANIM_LEVEL = {
-    low: ``,
-    high: `.part.sidebar.pane-composite-part {
-	     .pane-body {
-            .monaco-list-row {
-                .monaco-tl-row {
-                    .monaco-tl-twistie {
-                        transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                    }
-                    animation: easy-anim-opacity-animation-low-opacity 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                }
-            }
-
-            .monaco-tree-sticky-container {
-                .monaco-tl-row {
-                    animation: none;
-                }
-            }
-        }
-		}`,
-}
-
-// 终端动画枚举
-const TERMINAL_ANIMATION = {
-    disable: '',
-    enable: `.monaco-grid-branch-node .monaco-split-view2.vertical {
-    .monaco-scrollable-element {
-        .split-view-container > .split-view-view {
-            transition: top 0.3s ease-out;
-        }
-        // TODO 终端beat功能
-        .split-view-container > .split-view-view {
-            display: block !important;
-
-            .part.panel {
-                display: block !important;
-                visibility: visible !important;
-            }
-        }
-    }
-}`,
+    CursorWidth: {
+        key: 'CursorWidth',
+        default: 2,
+    },
+    CursorBackgroundColor: {
+        key: 'CursorBackgroundColor',
+        default: 'none',
+    },
 }
 
 // 主文件原始备份模板
@@ -169,4 +125,4 @@ const WORKBENCH_HTML_TEMPLATE = `<!-- Copyright (C) Microsoft Corporation. All r
 </html>
 `
 
-export { TIPS, COMMANDS, ANIM_LEVEL, PRIMARY_FILE, TERMINAL_ANIMATION, EXTENSION_CONFIG, BACKUP_FILE_SUFFIX, WORKBENCH_HTML_TEMPLATE }
+export { TIPS, COMMANDS, PRIMARY_FILE, EXTENSION_CONFIG, BACKUP_FILE_SUFFIX, WORKBENCH_HTML_TEMPLATE }

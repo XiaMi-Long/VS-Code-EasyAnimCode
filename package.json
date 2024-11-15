@@ -2,7 +2,7 @@
     "name": "easy-anim-code",
     "displayName": "Easy Anim Code",
     "description": "Add animations to basic VSCode operations",
-    "version": "0.0.6",
+    "version": "0.1.6",
     "icon": "./icon/logo.png",
     "engines": {
         "vscode": "^1.94.0"
@@ -40,24 +40,6 @@
                     "default": "#2aaaff",
                     "markdownDescription": "插件的主色调（只支持#RGB，#RGBA，#RRGGBB，#RRGGBBAA）"
                 },
-                "easy-anim-code.AnimLevel": {
-                    "type": "string",
-                    "enum": [
-                        "low",
-                        "high"
-                    ],
-                    "default": "low",
-                    "markdownDescription": "动画添加的数量（low: 正常, high: 多）"
-                },
-                "easy-anim-code.TerminalAnimation": {
-                    "type": "string",
-                    "enum": [
-                        "disable",
-                        "enable"
-                    ],
-                    "default": "disable",
-                    "markdownDescription": "终端动画设置（disable：禁用, enable：开启）"
-                },
                 "easy-anim-code.BackgroundImage": {
                     "type": "string",
                     "default": "none",
@@ -77,7 +59,7 @@
                         20,
                         10
                     ],
-                    "default": 50,
+                    "default": 30,
                     "markdownDescription": "背景图片模糊度"
                 },
                 "easy-anim-code.VSCodeBackgroundOpacity": {
@@ -90,8 +72,18 @@
                         0.5,
                         0.4
                     ],
-                    "default": 0.8,
+                    "default": 0.9,
                     "markdownDescription": "VSCode 背景透明度"
+                },
+                "easy-anim-code.CursorWidth": {
+                    "type": "number",
+                    "default": 1,
+                    "markdownDescription": "光标宽度(宽度为0：使用VSCode默认光标设置。自定义光标设置只推荐在VSCode中Cursor Style 为line 并且Cursor Blinking 为solid 同时启用Cursor Smooth Caret Animation 时使用)"
+                },
+                "easy-anim-code.CursorBackgroundColor": {
+                    "type": "string",
+                    "default": "#19dcea,#b22cff,#ea2222,#f5be10,#3bd80d",
+                    "markdownDescription": "光标样式（none：默认颜色，支持其他多个颜色组合渐变，颜色之间使用,分隔最多支持五个）"
                 }
             }
         },

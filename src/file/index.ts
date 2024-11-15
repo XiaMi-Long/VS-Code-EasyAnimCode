@@ -5,9 +5,9 @@ import { PRIMARY_FILE } from '../enum/tip'
 import {
     createBackgroundImage,
     createVSCodeBackgroundOpacity,
-    createHighAnimLevel,
     createRootValStyleTemplate,
-    createTerminalAnimation,
+    createCursorBackgroundColor,
+    createCursorWidth,
 } from '../common'
 
 /**
@@ -72,18 +72,25 @@ async function getVSCodeWorkbenchFolderPath() {
  */
 async function getResultHtml(workbenchText: string, cssText: string) {
     const rootVal = createRootValStyleTemplate()
-    const isHighLevel = createHighAnimLevel()
-    const terminalAnimation = createTerminalAnimation()
     const backgroundImage = await createBackgroundImage()
     let backgroundOpacityStyle = ''
     if (backgroundImage.length > 0) {
         backgroundOpacityStyle = createVSCodeBackgroundOpacity()
     }
 
+    const cursorWidth = createCursorWidth()
+    const cursorBackgroundColor = createCursorBackgroundColor()
+
     return workbenchText?.replace(
         /(<\/head>)/,
-        `\n<style>body{background-image: url(${backgroundImage});background-repeat: no-repeat;background-size: cover;}
-        ${rootVal} ${cssText} ${isHighLevel} ${terminalAnimation}${backgroundOpacityStyle}</style>\n</head>`
+        `\n<style>
+        body{background-image: url(${backgroundImage});background-repeat: no-repeat;background-size: cover;}
+        ${rootVal}
+        ${cssText}
+        ${backgroundOpacityStyle}
+        ${cursorWidth}
+        ${cursorBackgroundColor}
+        </style>\n</head>`
     )
 }
 
