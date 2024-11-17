@@ -34,11 +34,11 @@ const EXTENSION_CONFIG = {
     },
     BackgroundImageBlur: {
         key: 'BackgroundImageBlur',
-        default: 50,
+        default: 30,
     },
     VSCodeBackgroundOpacity: {
         key: 'VSCodeBackgroundOpacity',
-        default: 0.8,
+        default: 0.9,
     },
     CursorWidth: {
         key: 'CursorWidth',

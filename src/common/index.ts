@@ -118,7 +118,6 @@ async function createBackgroundImage() {
 
 /**
  * 创建用于设置 VSCode 背景透明度的 CSS 规则
- *
  * @returns {string} 包含设置背景透明度的 CSS 规则的字符串
  */
 function createVSCodeBackgroundOpacity() {

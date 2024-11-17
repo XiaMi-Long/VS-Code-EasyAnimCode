@@ -13,7 +13,7 @@
 // 滚动条样式
 .monaco-scrollable-element > .scrollbar > .slider {
     width: 10px !important;
-    left: 2px !important;
+    left: 1px !important;
     background-color: #424242 !important;
     border: 3px solid #252526 !important;
     border-radius: 7px !important;
@@ -39,9 +39,10 @@
     animation: slide-in-fwd-bottom 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
+// 当菜单缩小到左侧目录时，点击的动画
 .menubar.compact {
     .menubar-menu-items-holder.monaco-menu-container .monaco-scrollable-element {
-        animation: slide-in-fwd-top-title-menu 0.3s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+        animation: slide-in-fwd-top-title-menu 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
     }
 }
 
@@ -108,6 +109,26 @@
             border-radius: 25px;
             background-color: var(--vscode-style-easy-anim-red-color);
             animation: slide-in-left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+        }
+    }
+}
+
+// 代码文件夹目录动画
+.part.sidebar.pane-composite-part {
+    .pane-body {
+        .monaco-list-row {
+            .monaco-tl-row {
+                .monaco-tl-twistie {
+                    transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                }
+                animation: code-scale 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            }
+        }
+
+        .monaco-tree-sticky-container {
+            .monaco-tl-row {
+                animation: none;
+            }
         }
     }
 }
@@ -329,9 +350,12 @@
 }
 
 // 左侧活动栏的动画
-.part.activitybar {
-    animation: code-scale 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
+// .part.activitybar {
+//     .content .menubar.compact .menubar-menu-button.open .menubar-menu-items-holder.monaco-menu-container {
+//         will-change: transform;
+//     }
+//     animation: code-scale 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+// }
 
 // 左侧资源管理器的动画
 .monaco-grid-view .monaco-scrollable-element {
@@ -382,22 +406,43 @@
     }
 }
 
-.part.sidebar.pane-composite-part {
-    .pane-body {
-        .monaco-list-row {
-            .monaco-tl-row {
-                .monaco-tl-twistie {
-                    transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                }
-                animation: code-scale 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            }
-        }
+// 顶部菜单栏目录鼠标悬浮动画
+.part.titlebar {
+    .menubar-menu-button .menubar-menu-title {
+        transition: all 0.3s;
+    }
+    .menubar-menu-button:hover .menubar-menu-title {
+        transform: scale(0.9);
+    }
+    .menubar-menu-button .menubar-menu-title:active {
+        animation: label-active 0.3s both;
+    }
+}
 
-        .monaco-tree-sticky-container {
-            .monaco-tl-row {
-                animation: none;
-            }
-        }
+// 底部状态栏鼠标悬浮动画
+.part.statusbar {
+    .statusbar-item .statusbar-item-label {
+        transition: all 0.3s;
+    }
+    .statusbar-item:hover .statusbar-item-label {
+        transform: scale(0.9);
+    }
+    .statusbar-item .statusbar-item-label:active {
+        animation: label-active 0.3s both;
+    }
+}
+
+// 左侧菜单icon悬浮动画和选中动画
+.part.activitybar {
+    .action-label.codicon {
+        transition: all 0.3s;
+    }
+    .action-item.icon:active .action-label {
+        transform: scale(0.8);
+    }
+
+    .action-item.icon.checked .action-label {
+        transform: scale(0.8);
     }
 }
 
@@ -528,11 +573,25 @@
 // 顶部菜单悬浮展开动画
 @keyframes slide-in-fwd-top-title-menu {
     0% {
-        transform: translateY(-50px);
+        transform: translateY(-10px);
         opacity: 0;
     }
     100% {
         transform: translateY(0px);
         opacity: 1;
+    }
+}
+
+@keyframes label-active {
+    0% {
+        transform: scale(0.9);
+    }
+
+    10% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(0.9);
     }
 }
